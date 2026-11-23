@@ -1,0 +1,199 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 3ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 0ms
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 5ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido 5ms
+   → expected error to match asymmetric matcher
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError 0ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 1ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+   → expected function to throw an error, but it didn't
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+   → expected function to throw an error, but it didn't
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/elegibilidade-bloqueios.test.ts:25:22
+     23|
+     24|         // Assert
+     25|         expect(acao).toThrow(RegraNegocioError);
+       |                      ^
+     26|         expect(acao).toThrow(expect.objectContaining({ motivo: 'PENDEN…
+     27|       },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido
+AssertionError: expected error to match asymmetric matcher
+
+- Expected
++ Received
+
+- ObjectContaining {
+-   "motivo": "PENDENCIA",
++ RegraNegocioError {
++   "message": "Limite de livros excedido",
++   "motivo": "LIMITE_EXCEDIDO",
++   "name": "RegraNegocioError",
+  }
+
+ ❯ tests/elegibilidade-bloqueios.test.ts:38:20
+     36|
+     37|       // Assert
+     38|       expect(acao).toThrow(expect.objectContaining({ motivo: 'PENDENCI…
+       |                    ^
+     39|     });
+     40|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+RegraNegocioError {
+  "message": "Limite de livros excedido",
+  "motivo": "LIMITE_EXCEDIDO",
+  "name": "RegraNegocioError",
+}
+
+ ❯ tests/elegibilidade-bloqueios.test.ts:55:20
+     53|
+     54|       // Assert
+     55|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     56|     });
+     57|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/elegibilidade-bloqueios.test.ts:69:20
+     67|
+     68|       // Assert
+     69|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     70|     });
+     71|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/elegibilidade-bloqueios.test.ts:81:20
+     79|
+     80|       // Assert
+     81|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     82|     });
+     83|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/elegibilidade-bloqueios.test.ts:93:20
+     91|
+     92|       // Assert
+     93|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     94|     });
+     95|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/elegibilidade-bloqueios.test.ts:107:22
+    105|
+    106|         // Assert
+    107|         expect(acao).toThrow(ArgumentoInvalidoError);
+       |                      ^
+    108|       },
+    109|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+RegraNegocioError {
+  "message": "Limite de livros excedido",
+  "motivo": "LIMITE_EXCEDIDO",
+  "name": "RegraNegocioError",
+}
+
+ ❯ tests/elegibilidade-bloqueios.test.ts:107:22
+    105|
+    106|         // Assert
+    107|         expect(acao).toThrow(ArgumentoInvalidoError);
+       |                      ^
+    108|       },
+    109|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/elegibilidade-bloqueios.test.ts:121:20
+    119|
+    120|       // Assert
+    121|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+    122|     });
+    123|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  15 failed | 9 passed (24)
+   Start at  08:38:44
+   Duration  443ms (transform 36%, import 31%, tests 20%, worker 12%)
+
