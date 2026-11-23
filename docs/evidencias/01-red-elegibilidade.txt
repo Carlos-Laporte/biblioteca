@@ -1,0 +1,182 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 5ms
+   → Não implementado
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 0ms
+   → Não implementado
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 3ms
+   → expected error to be instance of RegraNegocioError
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 3ms
+   → expected error to match asymmetric matcher
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
+   → Não implementado
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
+   → Não implementado
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 1ms
+   → expected error to match asymmetric matcher
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+   → Não implementado
+ × tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 1ms
+   → expected error to match asymmetric matcher
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.validarEmprestimo src/domain/CalculadoraEmprestimo.ts:10:11
+      8|     _possuiPendencia: boolean,
+      9|   ): ResultadoEmprestimo {
+     10|     throw new Error('Não implementado');
+       |           ^
+     11|   }
+     12| }
+ ❯ tests/elegibilidade.test.ts:20:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite)
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.validarEmprestimo src/domain/CalculadoraEmprestimo.ts:10:11
+      8|     _possuiPendencia: boolean,
+      9|   ): ResultadoEmprestimo {
+     10|     throw new Error('Não implementado');
+       |           ^
+     11|   }
+     12| }
+ ❯ tests/elegibilidade.test.ts:37:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1)
+AssertionError: expected error to be instance of RegraNegocioError
+
+- Expected:
+[Function RegraNegocioError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/elegibilidade.test.ts:52:20
+     50|
+     51|       // Assert
+     52|       expect(acao).toThrow(RegraNegocioError);
+       |                    ^
+     53|       expect(acao).toThrow(expect.objectContaining({ motivo: 'LIMITE_E…
+     54|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1)
+AssertionError: expected error to match asymmetric matcher
+
+- Expected
++ Received
+
+- ObjectContaining {
+-   "motivo": "LIMITE_EXCEDIDO",
++ Error {
++   "message": "Não implementado",
+  }
+
+ ❯ tests/elegibilidade.test.ts:64:20
+     62|
+     63|       // Assert
+     64|       expect(acao).toThrow(expect.objectContaining({ motivo: 'LIMITE_E…
+       |                    ^
+     65|     });
+     66|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido)
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.validarEmprestimo src/domain/CalculadoraEmprestimo.ts:10:11
+      8|     _possuiPendencia: boolean,
+      9|   ): ResultadoEmprestimo {
+     10|     throw new Error('Não implementado');
+       |           ^
+     11|   }
+     12| }
+ ❯ tests/elegibilidade.test.ts:72:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.validarEmprestimo src/domain/CalculadoraEmprestimo.ts:10:11
+      8|     _possuiPendencia: boolean,
+      9|   ): ResultadoEmprestimo {
+     10|     throw new Error('Não implementado');
+       |           ^
+     11|   }
+     12| }
+ ❯ tests/elegibilidade.test.ts:86:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1)
+AssertionError: expected error to match asymmetric matcher
+
+- Expected
++ Received
+
+- ObjectContaining {
+-   "motivo": "LIMITE_EXCEDIDO",
++ Error {
++   "message": "Não implementado",
+  }
+
+ ❯ tests/elegibilidade.test.ts:106:20
+    104|
+    105|       // Assert
+    106|       expect(acao).toThrow(expect.objectContaining({ motivo: 'LIMITE_E…
+       |                    ^
+    107|     });
+    108|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.validarEmprestimo src/domain/CalculadoraEmprestimo.ts:10:11
+      8|     _possuiPendencia: boolean,
+      9|   ): ResultadoEmprestimo {
+     10|     throw new Error('Não implementado');
+       |           ^
+     11|   }
+     12| }
+ ❯ tests/elegibilidade.test.ts:116:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1)
+AssertionError: expected error to match asymmetric matcher
+
+- Expected
++ Received
+
+- ObjectContaining {
+-   "motivo": "LIMITE_EXCEDIDO",
++ Error {
++   "message": "Não implementado",
+  }
+
+ ❯ tests/elegibilidade.test.ts:136:20
+    134|
+    135|       // Assert
+    136|       expect(acao).toThrow(expect.objectContaining({ motivo: 'LIMITE_E…
+       |                    ^
+    137|     });
+    138|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed (9)
+   Start at  08:38:11
+   Duration  367ms (transform 51%, import 23%, tests 18%, worker 8%)
+
