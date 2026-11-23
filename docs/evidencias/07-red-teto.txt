@@ -1,0 +1,115 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 3ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00) 2ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00) 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CE18 — 7 dias de atraso: R$ 17.5 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT24 — 10 dias de atraso: R$ 25 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CT25 — 11 dias de atraso: R$ 30 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CE19 — 20 dias de atraso: R$ 75 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT20 — -1 dia de atraso lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (null) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > CT32 — a multa independe do perfil do usuário 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 3ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT26 — teto − 1 dia: 34 dias => R$ 145 3ms
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT27 — ponto exato do teto: 35 dias => R$ 150 0ms
+ × tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT28 — teto + 1 dia: 36 dias => R$ 150 6ms
+   → expected 155 to be 150 // Object.is equality
+ × tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT29 — valor extremo: 1000 dias => R$ 150 1ms
+   → expected 4975 to be 150 // Object.is equality
+ × tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > a multa nunca ultrapassa R$ 150,00 para 0..400 dias 1ms
+   → expected 1975 to be 150 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT28 — teto + 1 dia: 36 dias => R$ 150
+AssertionError: expected 155 to be 150 // Object.is equality
+
+- Expected
++ Received
+
+- 150
++ 155
+
+ ❯ tests/multa-teto.test.ts:26:19
+     24|
+     25|     // Assert
+     26|     expect(multa).toBe(esperado);
+       |                   ^
+     27|   });
+     28|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT29 — valor extremo: 1000 dias => R$ 150
+AssertionError: expected 4975 to be 150 // Object.is equality
+
+- Expected
++ Received
+
+- 150
++ 4975
+
+ ❯ tests/multa-teto.test.ts:26:19
+     24|
+     25|     // Assert
+     26|     expect(multa).toBe(esperado);
+       |                   ^
+     27|   });
+     28|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > a multa nunca ultrapassa R$ 150,00 para 0..400 dias
+AssertionError: expected 1975 to be 150 // Object.is equality
+
+- Expected
++ Received
+
+- 150
++ 1975
+
+ ❯ tests/multa-teto.test.ts:37:24
+     35|
+     36|     // Assert
+     37|     expect(maiorMulta).toBe(150);
+       |                        ^
+     38|   });
+     39| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  3 failed | 40 passed (43)
+   Start at  08:42:09
+   Duration  369ms (import 39%, transform 33%, tests 16%, worker 11%, environment 1%)
+
