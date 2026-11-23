@@ -1,0 +1,49 @@
+
+C:\Users\usuario\OneDrive\Desktop\trabalho vanessa\src\domain\CalculadoraEmprestimo.ts
+   5:3   warning  Method 'validarEmprestimo' has too many lines (41). Maximum allowed is 30                             max-lines-per-function
+   5:3   warning  Refactor this function to reduce its Cognitive Complexity from 10 to the 8 allowed                    sonarjs/cognitive-complexity
+   5:3   warning  Method 'validarEmprestimo' has a complexity of 12. Maximum allowed is 5                               complexity
+  11:16  error    Expected '===' and instead saw '=='                                                                   eqeqeq
+  20:32  error    Expected '!==' and instead saw '!='                                                                   eqeqeq
+  23:5   error    Unexpected var, use let or const instead                                                              no-var
+  23:9   error    The value assigned to 'limite' is not used in subsequent statements                                   no-useless-assignment
+  24:5   error    Unexpected var, use let or const instead                                                              no-var
+  24:9   error    The value assigned to 'prazo' is not used in subsequent statements                                    no-useless-assignment
+  25:16  error    Expected '===' and instead saw '=='                                                                   eqeqeq
+  26:16  warning  No magic number: 3                                                                                    @typescript-eslint/no-magic-numbers
+  27:15  warning  No magic number: 15                                                                                   @typescript-eslint/no-magic-numbers
+  28:23  error    Expected '===' and instead saw '=='                                                                   eqeqeq
+  29:16  warning  No magic number: 5                                                                                    @typescript-eslint/no-magic-numbers
+  30:15  warning  No magic number: 30                                                                                   @typescript-eslint/no-magic-numbers
+  31:23  error    Expected '===' and instead saw '=='                                                                   eqeqeq
+  32:16  warning  No magic number: 10                                                                                   @typescript-eslint/no-magic-numbers
+  33:15  warning  No magic number: 45                                                                                   @typescript-eslint/no-magic-numbers
+  37:25  error    Expected '===' and instead saw '=='                                                                   eqeqeq
+  37:28  error    Refactor the code to avoid using this boolean literal                                                 sonarjs/no-redundant-boolean
+  40:9   error    'total' is never reassigned. Use 'const' instead                                                      prefer-const
+  44:30  warning  Expected property shorthand                                                                           object-shorthand
+  44:46  warning  Expected property shorthand                                                                           object-shorthand
+  47:3   warning  Method 'calcularMulta' has a complexity of 10. Maximum allowed is 5                                   complexity
+  48:16  error    Expected '===' and instead saw '=='                                                                   eqeqeq
+  48:35  error    Expected '!==' and instead saw '!='                                                                   eqeqeq
+  48:60  error    Expected '!==' and instead saw '!='                                                                   eqeqeq
+  48:89  error    Expected '!==' and instead saw '!='                                                                   eqeqeq
+  54:5   error    Unexpected var, use let or const instead                                                              no-var
+  54:9   error    The value assigned to 'multa' is not used in subsequent statements                                    no-useless-assignment
+  55:23  warning  No magic number: 3                                                                                    @typescript-eslint/no-magic-numbers
+  56:15  error    Review this redundant assignment: "multa" already holds the assigned value along all execution paths  sonarjs/no-redundant-assignments
+  57:30  warning  No magic number: 10                                                                                   @typescript-eslint/no-magic-numbers
+  58:28  warning  No magic number: 2.5                                                                                  @typescript-eslint/no-magic-numbers
+  60:15  warning  No magic number: 10                                                                                   @typescript-eslint/no-magic-numbers
+  60:20  warning  No magic number: 2.5                                                                                  @typescript-eslint/no-magic-numbers
+  60:40  warning  No magic number: 10                                                                                   @typescript-eslint/no-magic-numbers
+  60:46  warning  No magic number: 5                                                                                    @typescript-eslint/no-magic-numbers
+  62:17  warning  No magic number: 150                                                                                  @typescript-eslint/no-magic-numbers
+  63:15  warning  No magic number: 150                                                                                  @typescript-eslint/no-magic-numbers
+
+C:\Users\usuario\OneDrive\Desktop\trabalho vanessa\tests\multa-teto.test.ts
+  34:46  warning  Identifier name 'd' is too short (< 2)  id-length
+
+✖ 41 problems (19 errors, 22 warnings)
+  5 errors and 2 warnings potentially fixable with the `--fix` option.
+
