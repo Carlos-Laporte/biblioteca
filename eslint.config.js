@@ -41,6 +41,12 @@ export default tseslint.config(
     },
   },
   {
+    // Scripts de desenvolvimento (Node): executam `npx` localmente por design.
+    files: ['scripts/**/*.mjs'],
+    languageOptions: { globals: globals.node },
+    rules: { 'sonarjs/no-os-command-from-path': 'off' },
+  },
+  {
     // Nos testes, números literais são os próprios dados de teste (valores-limite).
     files: ['tests/**/*.ts'],
     rules: {
