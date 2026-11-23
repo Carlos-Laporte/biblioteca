@@ -1,0 +1,187 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 3ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 4ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00) 8ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00) 1ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10 1ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CE18 — 7 dias de atraso: R$ 17.5 1ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT24 — 10 dias de atraso: R$ 25 0ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CT25 — 11 dias de atraso: R$ 30 0ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CE19 — 20 dias de atraso: R$ 75 0ms
+   → Não implementado
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT20 — -1 dia de atraso lança ArgumentoInvalidoError 11ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (null) lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError 0ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/multa.test.ts > RF02 — Cálculo de multa por atraso > CT32 — a multa independe do perfil do usuário 0ms
+   → Não implementado
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00)
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00)
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.calcularMulta src/domain/CalculadoraEmprestimo.ts:48:11
+     46|
+     47|   calcularMulta(_diasAtraso: number, _perfil: PerfilUsuario): number {
+     48|     throw new Error('Não implementado');
+       |           ^
+     49|   }
+     50| }
+ ❯ tests/multa.test.ts:23:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CE18 — 7 dias de atraso: R$ 17.5
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT24 — 10 dias de atraso: R$ 25
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.calcularMulta src/domain/CalculadoraEmprestimo.ts:48:11
+     46|
+     47|   calcularMulta(_diasAtraso: number, _perfil: PerfilUsuario): number {
+     48|     throw new Error('Não implementado');
+       |           ^
+     49|   }
+     50| }
+ ❯ tests/multa.test.ts:40:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CT25 — 11 dias de atraso: R$ 30
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CE19 — 20 dias de atraso: R$ 75
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.calcularMulta src/domain/CalculadoraEmprestimo.ts:48:11
+     46|
+     47|   calcularMulta(_diasAtraso: number, _perfil: PerfilUsuario): number {
+     48|     throw new Error('Não implementado');
+       |           ^
+     49|   }
+     50| }
+ ❯ tests/multa.test.ts:56:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT20 — -1 dia de atraso lança ArgumentoInvalidoError
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/multa.test.ts:72:20
+     70|
+     71|       // Assert
+     72|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     73|     });
+     74|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/multa.test.ts:83:20
+     81|
+     82|       // Assert
+     83|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     84|     });
+     85|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (null) lança ArgumentoInvalidoError
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/multa.test.ts:94:20
+     92|
+     93|       // Assert
+     94|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     95|     });
+     96|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/multa.test.ts > RF02 — Cálculo de multa por atraso > CT32 — a multa independe do perfil do usuário
+Error: Não implementado
+ ❯ CalculadoraEmprestimo.calcularMulta src/domain/CalculadoraEmprestimo.ts:48:11
+     46|
+     47|   calcularMulta(_diasAtraso: number, _perfil: PerfilUsuario): number {
+     48|     throw new Error('Não implementado');
+       |           ^
+     49|   }
+     50| }
+ ❯ tests/multa.test.ts:104:31
+ ❯ tests/multa.test.ts:103:100
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  14 failed | 24 passed (38)
+   Start at  08:41:48
+   Duration  507ms (transform 45%, import 26%, tests 19%, worker 9%)
+

@@ -43,4 +43,8 @@ export class CalculadoraEmprestimo {
     }
     return { aprovado: true, perfil: perfil, limite: limite, totalAposEmprestimo: total, prazoDevolucaoDias: prazo };
   }
+
+  calcularMulta(_diasAtraso: number, _perfil: PerfilUsuario): number {
+    throw new Error('Não implementado');
+  }
 }
