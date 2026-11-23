@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+reports
+.stryker-tmp
+.vitest
+.git
+docs/relatorio/img
+docs/*.pdf
+*.log

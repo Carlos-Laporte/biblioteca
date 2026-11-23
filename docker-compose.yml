@@ -1,0 +1,25 @@
+services:
+  # Interface React (build verificado) em http://localhost:8080
+  app:
+    build:
+      context: .
+      target: app
+    image: calculadora-emprestimo:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # Suíte de testes + cobertura sob demanda:  docker compose run --rm testes
+  testes:
+    build:
+      context: .
+      target: verificacao
+    image: calculadora-emprestimo:verificacao
+    command: npm run coverage
+    profiles: ["ferramentas"]
+
+  # Mutação: docker compose run --rm mutacao   (manual)  |  ... mutacao npm run mutation:auto (Stryker)
+  mutacao:
+    image: calculadora-emprestimo:verificacao
+    command: npm run mutantes
+    profiles: ["ferramentas"]

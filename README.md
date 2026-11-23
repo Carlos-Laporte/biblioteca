@@ -25,6 +25,19 @@ npm run dev            # interface React em http://localhost:5173
 npm run evidencias     # regenera os prints e o PDF do relatório (requer Chrome/Edge)
 ```
 
+## Executar com Docker
+
+A imagem só é construída se **typecheck, lint e testes com cobertura ≥ 90%** passarem (portão de qualidade no
+`Dockerfile`). A interface é servida por Nginx.
+
+```bash
+docker compose up -d --build              # interface em http://localhost:8080
+docker compose --profile ferramentas run --rm testes                         # testes + cobertura
+docker compose --profile ferramentas run --rm mutacao                        # 3 mutantes manuais
+docker compose --profile ferramentas run --rm mutacao npm run mutation:auto  # Stryker
+docker compose down                       # parar
+```
+
 ## Regras implementadas
 
 | Perfil | Limite simultâneo | Prazo |
