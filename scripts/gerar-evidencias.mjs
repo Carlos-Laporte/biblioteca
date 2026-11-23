@@ -39,10 +39,10 @@ function escapar(texto) {
 
 function colorir(linha) {
   const html = escapar(linha);
+  if (linha.startsWith('$ ')) return `<span class="cmd">${html}</span>`;
   if (/✓|MORTO|passed|100\.00 \||Killed|All files .*100/.test(linha)) return `<span class="ok">${html}</span>`;
   if (/×|SOBREVIVENTE|\[Survived]|failed| error /.test(linha)) return `<span class="erro">${html}</span>`;
   if (/warning/.test(linha)) return `<span class="aviso">${html}</span>`;
-  if (/^\s*\$ /.test(linha)) return `<span class="cmd">${html}</span>`;
   return html;
 }
 

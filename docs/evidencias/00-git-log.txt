@@ -13,3 +13,4 @@ f6d8a19  23/11 08:44  chore: configura analise estatica (ESLint + SonarJS) e reg
 8a8e487  23/11 08:47  test: analise de mutantes manual (3 mutantes, todos mortos) e Stryker (82,6%, 12 sobreviventes)
 9b85ca9  23/11 08:47  test: testes complementares guiados por mutacao (perfil nao-string, mensagens); Stryker 100%
 8024878  23/11 08:50  feat(ui): interface React + Vite consumindo o modulo CalculadoraEmprestimo
+19dc56b  23/11 08:55  docs: relatorio tecnico (HTML/PDF) e gerador de evidencias
