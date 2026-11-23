@@ -9,16 +9,31 @@ services:
       - "8080:80"
     restart: unless-stopped
 
-  # Suíte de testes + cobertura sob demanda:  docker compose run --rm testes
-  testes:
+  # Pipeline completo de qualidade; relatórios exportados para a pasta do projeto:
+  #   docker compose --profile ferramentas run --rm --build qualidade
+  # (relatórios copiados para ./relatorios-docker ao final, mesmo se alguma etapa falhar)
+  qualidade:
     build:
       context: .
       target: verificacao
     image: calculadora-emprestimo:verificacao
-    command: npm run coverage
+    command: >
+      sh -c "npm run qualidade; status=$$?;
+             cp -r coverage /saida/cobertura 2>/dev/null; cp -r reports/mutation /saida/mutacao 2>/dev/null;
+             exit $$status"
+    volumes:
+      - ./relatorios-docker:/saida
     profiles: ["ferramentas"]
 
-  # Mutação: docker compose run --rm mutacao   (manual)  |  ... mutacao npm run mutation:auto (Stryker)
+  # Apenas testes + cobertura:  docker compose --profile ferramentas run --rm testes
+  testes:
+    image: calculadora-emprestimo:verificacao
+    command: sh -c "npm run coverage; status=$$?; cp -r coverage /saida/cobertura 2>/dev/null; exit $$status"
+    volumes:
+      - ./relatorios-docker:/saida
+    profiles: ["ferramentas"]
+
+  # Mutação manual:  docker compose --profile ferramentas run --rm mutacao
   mutacao:
     image: calculadora-emprestimo:verificacao
     command: npm run mutantes

@@ -25,18 +25,28 @@ npm run dev            # interface React em http://localhost:5173
 npm run evidencias     # regenera os prints e o PDF do relatório (requer Chrome/Edge)
 ```
 
-## Executar com Docker
+## Executar com Docker (automatizado)
 
 A imagem só é construída se **typecheck, lint e testes com cobertura ≥ 90%** passarem (portão de qualidade no
-`Dockerfile`). A interface é servida por Nginx.
+`Dockerfile`). A interface é servida por Nginx em http://localhost:8080.
 
-```bash
-docker compose up -d --build              # interface em http://localhost:8080
-docker compose --profile ferramentas run --rm testes                         # testes + cobertura
-docker compose --profile ferramentas run --rm mutacao                        # 3 mutantes manuais
-docker compose --profile ferramentas run --rm mutacao npm run mutation:auto  # Stryker
-docker compose down                       # parar
-```
+**Windows, sem terminal:** dê dois cliques em **`iniciar.bat`** (builda, testa, sobe e abre o navegador) e em
+**`parar.bat`** para desligar. Só exige o Docker Desktop aberto.
+
+| Comando | O que faz |
+|---|---|
+| `npm run docker:subir` | build com portão de qualidade → sobe o container → espera responder → abre o navegador |
+| `npm run docker:qualidade` | pipeline completo no container (tipos, lint, cobertura, mutantes manuais, Stryker) e exporta os relatórios para `relatorios-docker/` |
+| `npm run docker:logs` | acompanha os logs da aplicação |
+| `npm run docker:parar` | derruba todos os containers |
+| `npm run qualidade` | o mesmo pipeline, sem Docker |
+
+## Integração contínua (GitHub Actions)
+
+A cada `push`/PR em `main`, [.github/workflows/ci.yml](.github/workflows/ci.yml) executa typecheck, lint
+(sem avisos), testes com cobertura ≥ 90%, mutantes manuais e Stryker. Depois builda a imagem Docker e faz um
+*smoke test* do container. A tabela de cobertura aparece no resumo da execução, e os relatórios HTML ficam
+disponíveis como artefato `relatorios`.
 
 ## Regras implementadas
 

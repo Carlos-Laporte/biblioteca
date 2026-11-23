@@ -16,7 +16,12 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "evidencias": "node scripts/gerar-evidencias.mjs"
+    "evidencias": "node scripts/gerar-evidencias.mjs",
+    "qualidade": "npm run typecheck && npm run lint && npm run coverage && npm run mutantes && npm run mutation:auto",
+    "docker:subir": "node scripts/docker.mjs subir",
+    "docker:qualidade": "node scripts/docker.mjs qualidade",
+    "docker:parar": "node scripts/docker.mjs parar",
+    "docker:logs": "node scripts/docker.mjs logs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

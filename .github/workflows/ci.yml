@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualidade:
+    name: Testes, cobertura, lint e mutação
+    runs-on: ubuntu-latest
+    env:
+      NO_COLOR: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Verificação de tipos
+        run: npm run typecheck
+
+      - name: Análise estática (ESLint + SonarJS)
+        run: npm run lint -- --max-warnings=0
+
+      - name: Testes + cobertura (mínimo 90%)
+        run: npm run coverage
+
+      - name: Mutantes manuais
+        run: npm run mutantes
+
+      - name: Mutação automática (Stryker)
+        run: npm run mutation:auto
+
+      - name: Resumo da cobertura
+        if: always()
+        run: |
+          node -e "
+            const s = require('./coverage/coverage-summary.json').total;
+            const linha = (n, m) => '| ' + n + ' | ' + m.pct + '% | ' + m.covered + '/' + m.total + ' |';
+            console.log(['## Cobertura', '| Métrica | % | Cobertos |', '|---|---|---|',
+              linha('Linhas', s.lines), linha('Ramos', s.branches),
+              linha('Funções', s.functions), linha('Instruções', s.statements)].join('\n'));
+          " >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publicar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios
+          path: |
+            coverage/
+            reports/mutation/
+
+  docker:
+    name: Build da imagem Docker
+    needs: qualidade
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build (portão de qualidade + Nginx)
+        run: docker build --target app -t calculadora-emprestimo:ci .
+
+      - name: Smoke test do container
+        run: |
+          docker run -d --name app -p 8080:80 calculadora-emprestimo:ci
+          for i in $(seq 1 30); do curl -sf http://localhost:8080/ >/dev/null && break; sleep 1; done
+          curl -sf http://localhost:8080/ | grep -q '<div id="root">'
+          echo "Container respondeu corretamente."

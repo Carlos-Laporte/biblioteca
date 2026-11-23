@@ -8,3 +8,4 @@ reports
 docs/relatorio/img
 docs/*.pdf
 *.log
+relatorios-docker
