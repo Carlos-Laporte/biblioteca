@@ -10,10 +10,14 @@
     "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "lint:report": "eslint . -f json -o reports/eslint.json"
+    "lint:report": "eslint . -f json -o reports/eslint.json",
+    "mutantes": "node scripts/mutantes.mjs",
+    "mutation:auto": "stryker run"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@stryker-mutator/core": "^10.1.1",
+    "@stryker-mutator/vitest-runner": "^10.1.1",
     "@vitest/coverage-v8": "^5.1.1",
     "eslint": "^10.15.0",
     "eslint-plugin-sonarjs": "^4.2.2",

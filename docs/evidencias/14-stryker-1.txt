@@ -1,0 +1,199 @@
+[32m08:46:22 (14472) INFO ProjectReader[39m Found 4 of 58 file(s) to be mutated.
+[32m08:46:22 (14472) INFO Instrumenter[39m Instrumented 4 source file(s) with 69 mutant(s)
+[32m08:46:23 (14472) INFO ConcurrencyTokenProvider[39m Creating 11 test runner process(es).
+[32m08:46:24 (14472) INFO DryRunExecutor[39m Starting initial test run (vitest test runner with "perTest" coverage analysis). This may take a while.
+[32m08:46:26 (14472) INFO DryRunExecutor[39m Initial test run succeeded. Ran 43 tests in 1 second (net 40.850299999999834 ms, overhead 1170.1497000000002 ms).
+
+All tests
+  elegibilidade-bloqueios.test.ts
+    ✓ RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite [line 15] (killed 17)
+    ~ RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite [line 15] (covered 33)
+    ~ RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite [line 15] (covered 33)
+    ~ RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido [line 30] (covered 33)
+    ✓ RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError [line 47] (killed 5)
+    ~ RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError [line 47] (covered 13)
+    ✓ RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError [line 47] (killed 1)
+    ✓ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError [line 60] (killed 5)
+    ~ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro [line 72] (covered 20)
+    ~ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro [line 72] (covered 20)
+    ~ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError [line 84] (covered 24)
+    ~ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError [line 84] (covered 24)
+    ~ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro [line 96] (covered 24)
+    ~ RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro [line 96] (covered 24)
+    ✓ RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError [line 113] (killed 3)
+  elegibilidade.test.ts
+    ✓ RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias [line 15] (killed 8)
+    ~ RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) [line 32] (covered 35)
+    ✓ RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) [line 44] (killed 3)
+    ~ RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) [line 56] (covered 38)
+    ~ RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) [line 67] (covered 35)
+    ✓ RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias [line 81] (killed 1)
+    ~ RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) [line 98] (covered 38)
+    ✓ RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias [line 111] (killed 1)
+    ~ RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) [line 128] (covered 38)
+  multa-teto.test.ts
+    ~ RF02 — Teto máximo da multa (R$ 150,00) > CT26 — teto − 1 dia: 34 dias => R$ 145 [line 18] (covered 29)
+    ~ RF02 — Teto máximo da multa (R$ 150,00) > CT27 — ponto exato do teto: 35 dias => R$ 150 [line 18] (covered 29)
+    ~ RF02 — Teto máximo da multa (R$ 150,00) > CT28 — teto + 1 dia: 36 dias => R$ 150 [line 18] (covered 29)
+    ~ RF02 — Teto máximo da multa (R$ 150,00) > CT29 — valor extremo: 1000 dias => R$ 150 [line 18] (covered 29)
+    ~ RF02 — Teto máximo da multa (R$ 150,00) > a multa nunca ultrapassa R$ 150,00 para 0..400 dias [line 29] (covered 30)
+  multa.test.ts
+    ✓ RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00) [line 18] (killed 1)
+    ✓ RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00) [line 18] (killed 4)
+    ✓ RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10 [line 35] (killed 5)
+    ~ RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CE18 — 7 dias de atraso: R$ 17.5 [line 35] (covered 29)
+    ~ RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT24 — 10 dias de atraso: R$ 25 [line 35] (covered 29)
+    ✓ RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CT25 — 11 dias de atraso: R$ 30 [line 51] (killed 2)
+    ~ RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CE19 — 20 dias de atraso: R$ 75 [line 51] (covered 29)
+    ~ RF02 — Cálculo de multa por atraso > Entradas inválidas > CT20 — -1 dia de atraso lança ArgumentoInvalidoError [line 64] (covered 23)
+    ~ RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError [line 75] (covered 20)
+    ~ RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError [line 75] (covered 20)
+    ✓ RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (null) lança ArgumentoInvalidoError [line 86] (killed 1)
+    ~ RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError [line 86] (covered 13)
+    ~ RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError [line 86] (covered 14)
+    ~ RF02 — Cálculo de multa por atraso > CT32 — a multa independe do perfil do usuário [line 98] (covered 29)
+
+[Survived] StringLiteral
+src/domain/CalculadoraEmprestimo.ts:24:73
+-       garantirInteiroMinimo(livrosEmprestados, MINIMO_LIVROS_EMPRESTADOS, 'Quantidade de livros emprestados');
++       garantirInteiroMinimo(livrosEmprestados, MINIMO_LIVROS_EMPRESTADOS, "");
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+  and 18 more tests!
+
+
+[Survived] StringLiteral
+src/domain/CalculadoraEmprestimo.ts:25:73
+-       garantirInteiroMinimo(livrosSolicitados, MINIMO_LIVROS_SOLICITADOS, 'Quantidade de livros solicitados');
++       garantirInteiroMinimo(livrosSolicitados, MINIMO_LIVROS_SOLICITADOS, "");
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+  and 15 more tests!
+
+
+[Survived] StringLiteral
+src/domain/CalculadoraEmprestimo.ts:26:39
+-       garantirBooleano(possuiPendencia, 'Indicador de pendência');
++       garantirBooleano(possuiPendencia, "");
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+  and 11 more tests!
+
+
+[Survived] StringLiteral
+src/domain/CalculadoraEmprestimo.ts:29:48
+-         throw new RegraNegocioError('PENDENCIA', 'Empréstimo recusado: usuário possui multa ou livro em atraso');
++         throw new RegraNegocioError('PENDENCIA', "");
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+  and 1 more test!
+
+
+[Survived] StringLiteral
+src/domain/CalculadoraEmprestimo.ts:37:9
+-           `Empréstimo recusado: ${totalAposEmprestimo} livros excede o limite de ${limiteLivros}`,
++           ``,
+Tests ran:
+    RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1)
+    RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1)
+    RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1)
+  and 1 more test!
+
+
+[Survived] StringLiteral
+src/domain/CalculadoraEmprestimo.ts:50:59
+-       garantirInteiroMinimo(diasAtraso, MINIMO_DIAS_ATRASO, 'Quantidade de dias de atraso');
++       garantirInteiroMinimo(diasAtraso, MINIMO_DIAS_ATRASO, "");
+Tests ran:
+    RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00)
+    RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00)
+    RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10
+  and 13 more tests!
+
+
+[Survived] StringLiteral
+src/domain/erros.ts:5:17
+-       this.name = 'ArgumentoInvalidoError';
++       this.name = "";
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError
+    RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError
+    RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError
+  and 14 more tests!
+
+
+[Survived] StringLiteral
+src/domain/erros.ts:17:17
+-       this.name = 'RegraNegocioError';
++       this.name = "";
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+  and 5 more tests!
+
+
+[Survived] StringLiteral
+src/domain/validacoes.ts:7:38
+-       throw new ArgumentoInvalidoError(`Perfil de usuário inválido: ${String(perfil)}`);
++       throw new ArgumentoInvalidoError(``);
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError
+    RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError
+    RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError
+  and 3 more tests!
+
+
+[Survived] StringLiteral
+src/domain/validacoes.ts:13:38
+-       throw new ArgumentoInvalidoError(`${descricao} inválido(a): ${valor} (mínimo ${minimo})`);
++       throw new ArgumentoInvalidoError(``);
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError
+    RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro
+    RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro
+  and 7 more tests!
+
+
+[Survived] ConditionalExpression
+src/domain/validacoes.ts:6:7
+-     if (typeof perfil !== 'string' || !Object.hasOwn(REGRAS_POR_PERFIL, perfil)) {
++     if (false || !Object.hasOwn(REGRAS_POR_PERFIL, perfil)) {
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite
+    RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite
+  and 40 more tests!
+
+
+[Survived] StringLiteral
+src/domain/validacoes.ts:19:38
+-       throw new ArgumentoInvalidoError(`${descricao} deve ser booleano`);
++       throw new ArgumentoInvalidoError(``);
+Tests ran:
+    RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError
+
+
+Ran 5.62 tests per mutant on average.
+--------------------------|------------------|----------|-----------|------------|----------|----------|
+                          | % Mutation score |          |           |            |          |          |
+File                      |  total | covered | # killed | # timeout | # survived | # no cov | # errors |
+--------------------------|--------|---------|----------|-----------|------------|----------|----------|
+All files                 |  82.61 |   82.61 |       57 |         0 |         12 |        0 |        0 |
+ CalculadoraEmprestimo.ts |  82.35 |   82.35 |       28 |         0 |          6 |        0 |        0 |
+ erros.ts                 |  50.00 |   50.00 |        2 |         0 |          2 |        0 |        0 |
+ regras.ts                | 100.00 |  100.00 |        4 |         0 |          0 |        0 |        0 |
+ validacoes.ts            |  85.19 |   85.19 |       23 |         0 |          4 |        0 |        0 |
+--------------------------|--------|---------|----------|-----------|------------|----------|----------|
+[32m08:46:35 (14472) INFO MutationTestReportHelper[39m Final mutation score of 82.61 is greater than or equal to break threshold 70
+[32m08:46:35 (14472) INFO JsonReporter[39m Your report can be found at: file:///C:/Users/usuario/OneDrive/Desktop/trabalho%20vanessa/reports/mutation/mutation.json
+[32m08:46:35 (14472) INFO HtmlReporter[39m Your report can be found at: file:///C:/Users/usuario/OneDrive/Desktop/trabalho%20vanessa/reports/mutation/index.html
+[32m08:46:35 (14472) INFO MutationTestExecutor[39m Done in 13 seconds.

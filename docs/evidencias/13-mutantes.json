@@ -1,0 +1,63 @@
+[
+  {
+    "id": "M1",
+    "tipo": "Operador relacional (ROR)",
+    "arquivo": "src/domain/CalculadoraEmprestimo.ts",
+    "original": "if (totalAposEmprestimo > limiteLivros) {",
+    "mutante": "if (totalAposEmprestimo >= limiteLivros) {",
+    "total": 43,
+    "falharam": 4,
+    "falhas": [
+      "CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias",
+      "CT02 — aprova 2 + 1 livros (total = limite)",
+      "CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias",
+      "CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias"
+    ],
+    "status": "MORTO"
+  },
+  {
+    "id": "M2",
+    "tipo": "Constante financeira",
+    "arquivo": "src/domain/regras.ts",
+    "original": "VALOR_DIA_PRIMEIRA_FAIXA: 2.5,",
+    "mutante": "VALOR_DIA_PRIMEIRA_FAIXA: 2.0,",
+    "total": 43,
+    "falharam": 8,
+    "falhas": [
+      "CT26 — teto − 1 dia: 34 dias => R$ 145",
+      "CT27 — ponto exato do teto: 35 dias => R$ 150",
+      "CT23 — 4 dias de atraso: R$ 10",
+      "CE18 — 7 dias de atraso: R$ 17.5",
+      "CT24 — 10 dias de atraso: R$ 25",
+      "CT25 — 11 dias de atraso: R$ 30",
+      "CE19 — 20 dias de atraso: R$ 75",
+      "CT32 — a multa independe do perfil do usuário"
+    ],
+    "status": "MORTO"
+  },
+  {
+    "id": "M3",
+    "tipo": "Inversão de condição lógica",
+    "arquivo": "src/domain/CalculadoraEmprestimo.ts",
+    "original": "if (possuiPendencia) {",
+    "mutante": "if (!possuiPendencia) {",
+    "total": 43,
+    "falharam": 13,
+    "falhas": [
+      "CT12 — recusa GRADUACAO com pendência mesmo dentro do limite",
+      "CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite",
+      "CT12 — recusa PROFESSOR com pendência mesmo dentro do limite",
+      "CT19 — pendência tem prioridade sobre o limite excedido",
+      "CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias",
+      "CT02 — aprova 2 + 1 livros (total = limite)",
+      "CT03 — recusa 3 + 1 livros (limite + 1)",
+      "CT04 — recusa 0 + 4 livros (limite + 1)",
+      "CT09 — aprova 0 + 1 livro (mínimo válido)",
+      "CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias",
+      "CT06 — recusa 5 + 1 livros (limite + 1)",
+      "CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias",
+      "CT08 — recusa 10 + 1 livros (limite + 1)"
+    ],
+    "status": "MORTO"
+  }
+]
