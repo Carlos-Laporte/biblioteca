@@ -1,67 +1,63 @@
-import { ArgumentoInvalidoError, RegraNegocioError } from './erros';
+import { RegraNegocioError } from './erros';
+import { REGRAS_MULTA, REGRAS_POR_PERFIL } from './regras';
 import { PerfilUsuario, ResultadoEmprestimo } from './tipos';
+import { garantirBooleano, garantirInteiroMinimo, garantirPerfilValido } from './validacoes';
+
+const MINIMO_LIVROS_EMPRESTADOS = 0;
+const MINIMO_LIVROS_SOLICITADOS = 1;
+const MINIMO_DIAS_ATRASO = 0;
+const SEM_MULTA = 0;
 
 export class CalculadoraEmprestimo {
+  /**
+   * RF01 — valida um novo empréstimo.
+   * @throws ArgumentoInvalidoError entrada fora do domínio
+   * @throws RegraNegocioError usuário com pendência ou limite do perfil excedido
+   */
   validarEmprestimo(
     perfil: PerfilUsuario,
     livrosEmprestados: number,
     livrosSolicitados: number,
     possuiPendencia: boolean,
   ): ResultadoEmprestimo {
-    if (perfil == null) {
-      throw new ArgumentoInvalidoError('Perfil de usuário inválido');
+    garantirPerfilValido(perfil);
+    garantirInteiroMinimo(livrosEmprestados, MINIMO_LIVROS_EMPRESTADOS, 'Quantidade de livros emprestados');
+    garantirInteiroMinimo(livrosSolicitados, MINIMO_LIVROS_SOLICITADOS, 'Quantidade de livros solicitados');
+    garantirBooleano(possuiPendencia, 'Indicador de pendência');
+
+    if (possuiPendencia) {
+      throw new RegraNegocioError('PENDENCIA', 'Empréstimo recusado: usuário possui multa ou livro em atraso');
     }
-    if (!Number.isInteger(livrosEmprestados) || livrosEmprestados < 0) {
-      throw new ArgumentoInvalidoError('Quantidade de livros inválida');
+
+    const { limiteLivros, prazoDevolucaoDias } = REGRAS_POR_PERFIL[perfil];
+    const totalAposEmprestimo = livrosEmprestados + livrosSolicitados;
+    if (totalAposEmprestimo > limiteLivros) {
+      throw new RegraNegocioError(
+        'LIMITE_EXCEDIDO',
+        `Empréstimo recusado: ${totalAposEmprestimo} livros excede o limite de ${limiteLivros}`,
+      );
     }
-    if (!Number.isInteger(livrosSolicitados) || livrosSolicitados < 1) {
-      throw new ArgumentoInvalidoError('Quantidade de livros inválida');
-    }
-    if (typeof possuiPendencia != 'boolean') {
-      throw new ArgumentoInvalidoError('Indicador de pendência inválido');
-    }
-    var limite = 0;
-    var prazo = 0;
-    if (perfil == 'GRADUACAO') {
-      limite = 3;
-      prazo = 15;
-    } else if (perfil == 'POS_GRADUACAO') {
-      limite = 5;
-      prazo = 30;
-    } else if (perfil == 'PROFESSOR') {
-      limite = 10;
-      prazo = 45;
-    } else {
-      throw new ArgumentoInvalidoError('Perfil de usuário inválido');
-    }
-    if (possuiPendencia == true) {
-      throw new RegraNegocioError('PENDENCIA', 'Usuário possui pendências');
-    }
-    let total = livrosEmprestados + livrosSolicitados;
-    if (total > limite) {
-      throw new RegraNegocioError('LIMITE_EXCEDIDO', 'Limite de livros excedido');
-    }
-    return { aprovado: true, perfil: perfil, limite: limite, totalAposEmprestimo: total, prazoDevolucaoDias: prazo };
+
+    return { aprovado: true, perfil, limite: limiteLivros, totalAposEmprestimo, prazoDevolucaoDias };
   }
 
+  /**
+   * RF02 — calcula a multa (R$) por atraso na devolução.
+   * @throws ArgumentoInvalidoError dias negativos/não inteiros ou perfil inválido
+   */
   calcularMulta(diasAtraso: number, perfil: PerfilUsuario): number {
-    if (perfil == null || (perfil != 'GRADUACAO' && perfil != 'POS_GRADUACAO' && perfil != 'PROFESSOR')) {
-      throw new ArgumentoInvalidoError('Perfil de usuário inválido');
+    garantirPerfilValido(perfil);
+    garantirInteiroMinimo(diasAtraso, MINIMO_DIAS_ATRASO, 'Quantidade de dias de atraso');
+
+    if (diasAtraso <= REGRAS_MULTA.DIAS_TOLERANCIA) {
+      return SEM_MULTA;
     }
-    if (!Number.isInteger(diasAtraso) || diasAtraso < 0) {
-      throw new ArgumentoInvalidoError('Quantidade de dias inválida');
-    }
-    var multa = 0;
-    if (diasAtraso <= 3) {
-      multa = 0;
-    } else if (diasAtraso <= 10) {
-      multa = diasAtraso * 2.5;
-    } else {
-      multa = 10 * 2.5 + (diasAtraso - 10) * 5;
-    }
-    if (multa > 150) {
-      multa = 150;
-    }
-    return multa;
+
+    const diasPrimeiraFaixa = Math.min(diasAtraso, REGRAS_MULTA.DIAS_PRIMEIRA_FAIXA);
+    const diasExcedentes = diasAtraso - diasPrimeiraFaixa;
+    const valorBruto =
+      diasPrimeiraFaixa * REGRAS_MULTA.VALOR_DIA_PRIMEIRA_FAIXA + diasExcedentes * REGRAS_MULTA.VALOR_DIA_EXCEDENTE;
+
+    return Math.min(valorBruto, REGRAS_MULTA.TETO);
   }
 }

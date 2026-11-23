@@ -1,0 +1,8 @@
+Medição: ESLint (regra `complexity`) e SonarJS (`cognitive-complexity`)
+
+Função                      Ciclomática (antes -> depois)   Cognitiva (antes -> depois)
+validarEmprestimo           12 -> 3                          10 -> 2
+calcularMulta               10 -> 2                           7 -> 1
+garantirPerfilValido        —  -> 3                           —  -> 1
+garantirInteiroMinimo       —  -> 3                           —  -> 1
+garantirBooleano            —  -> 2                           —  -> 1

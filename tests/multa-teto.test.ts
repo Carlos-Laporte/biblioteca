@@ -31,7 +31,7 @@ describe('RF02 — Teto máximo da multa (R$ 150,00)', () => {
     const dias = Array.from({ length: 401 }, (_, i) => i);
 
     // Act
-    const maiorMulta = Math.max(...dias.map((d) => calculadora.calcularMulta(d, PerfilUsuario.PROFESSOR)));
+    const maiorMulta = Math.max(...dias.map((dia) => calculadora.calcularMulta(dia, PerfilUsuario.PROFESSOR)));
 
     // Assert
     expect(maiorMulta).toBe(150);
