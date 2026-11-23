@@ -1,0 +1,33 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 3ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 3ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+
+ Test Files  2 passed (2)
+      Tests  24 passed (24)
+   Start at  08:38:57
+   Duration  275ms (transform 44%, import 33%, tests 11%, worker 11%)
+
