@@ -2,4 +2,5 @@
 cd /d "%~dp0"
 docker compose --profile ferramentas down --remove-orphans
 echo Containers parados.
-timeout /t 3 >nul
+ping -n 4 127.0.0.1 >nul
+exit /b 0

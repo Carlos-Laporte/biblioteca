@@ -30,4 +30,5 @@ exit /b 1
 :pronto
 echo Aplicacao no ar em http://localhost:8080
 start "" http://localhost:8080
-timeout /t 3 >nul
+ping -n 4 127.0.0.1 >nul
+exit /b 0
