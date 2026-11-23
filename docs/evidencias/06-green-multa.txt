@@ -1,0 +1,47 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 3ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 5ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00) 3ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00) 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CE18 — 7 dias de atraso: R$ 17.5 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT24 — 10 dias de atraso: R$ 25 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CT25 — 11 dias de atraso: R$ 30 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CE19 — 20 dias de atraso: R$ 75 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT20 — -1 dia de atraso lança ArgumentoInvalidoError 1ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (null) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > CT32 — a multa independe do perfil do usuário 1ms
+
+ Test Files  3 passed (3)
+      Tests  38 passed (38)
+   Start at  08:41:58
+   Duration  355ms (transform 40%, import 33%, tests 15%, worker 11%, environment 1%)
+

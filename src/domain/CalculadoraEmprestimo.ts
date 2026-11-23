@@ -44,7 +44,21 @@ export class CalculadoraEmprestimo {
     return { aprovado: true, perfil: perfil, limite: limite, totalAposEmprestimo: total, prazoDevolucaoDias: prazo };
   }
 
-  calcularMulta(_diasAtraso: number, _perfil: PerfilUsuario): number {
-    throw new Error('Não implementado');
+  calcularMulta(diasAtraso: number, perfil: PerfilUsuario): number {
+    if (perfil == null || (perfil != 'GRADUACAO' && perfil != 'POS_GRADUACAO' && perfil != 'PROFESSOR')) {
+      throw new ArgumentoInvalidoError('Perfil de usuário inválido');
+    }
+    if (!Number.isInteger(diasAtraso) || diasAtraso < 0) {
+      throw new ArgumentoInvalidoError('Quantidade de dias inválida');
+    }
+    var multa = 0;
+    if (diasAtraso <= 3) {
+      multa = 0;
+    } else if (diasAtraso <= 10) {
+      multa = diasAtraso * 2.5;
+    } else {
+      multa = 10 * 2.5 + (diasAtraso - 10) * 5;
+    }
+    return multa;
   }
 }
