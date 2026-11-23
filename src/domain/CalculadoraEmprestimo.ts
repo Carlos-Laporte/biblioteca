@@ -59,6 +59,9 @@ export class CalculadoraEmprestimo {
     } else {
       multa = 10 * 2.5 + (diasAtraso - 10) * 5;
     }
+    if (multa > 150) {
+      multa = 150;
+    }
     return multa;
   }
 }
