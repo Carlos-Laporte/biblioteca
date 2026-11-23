@@ -1,0 +1,15 @@
+d361a51  23/11 08:37  chore: configura projeto TypeScript com Vitest e cobertura v8
+4cb0490  23/11 08:37  docs: documenta casos de teste (Particao de Equivalencia e Valor Limite)
+12b37cd  23/11 08:38  test(RED): testes de limite e prazo por perfil (RF01, CT01-CT09)
+0b08984  23/11 08:38  feat(GREEN): implementa limite e prazo por perfil (RF01)
+c936f7a  23/11 08:38  test(RED): bloqueio por pendencia e entradas invalidas (RF01, CT10-CT19)
+d196b54  23/11 08:39  feat(GREEN): bloqueio por pendencia e validacao de entradas (RF01)
+40bbc20  23/11 08:41  test(RED): faixas de multa por atraso e entradas invalidas (RF02, CT20-CT25, CT30-CT32)
+a5ee58d  23/11 08:42  feat(GREEN): calcula multa por faixas de atraso (RF02)
+df39142  23/11 08:42  test(RED): teto maximo de R$150 da multa (RF02, CT26-CT29)
+2f8b8ae  23/11 08:42  feat(GREEN): aplica teto de R$150 na multa (RF02)
+f6d8a19  23/11 08:44  chore: configura analise estatica (ESLint + SonarJS) e registra baseline (41 apontamentos)
+984ab63  23/11 08:45  refactor: extrai regras/constantes e validadores; elimina 41 apontamentos da analise estatica
+8a8e487  23/11 08:47  test: analise de mutantes manual (3 mutantes, todos mortos) e Stryker (82,6%, 12 sobreviventes)
+9b85ca9  23/11 08:47  test: testes complementares guiados por mutacao (perfil nao-string, mensagens); Stryker 100%
+8024878  23/11 08:50  feat(ui): interface React + Vite consumindo o modulo CalculadoraEmprestimo

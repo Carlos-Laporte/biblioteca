@@ -15,7 +15,8 @@
     "mutation:auto": "stryker run",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "evidencias": "node scripts/gerar-evidencias.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

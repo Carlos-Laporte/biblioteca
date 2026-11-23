@@ -1,7 +1,14 @@
- % Coverage report from v8
-No files with missing coverage.
-5 files fully covered.
-1 empty file skipped.
+% Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |     100 |      100 |     100 |     100 |                   
+ ...aEmprestimo.ts |     100 |      100 |     100 |     100 |                   
+ erros.ts          |     100 |      100 |     100 |     100 |                   
+ regras.ts         |     100 |      100 |     100 |     100 |                   
+ tipos.ts          |     100 |      100 |     100 |     100 |                   
+ validacoes.ts     |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
 
 =============================== Coverage summary ===============================
 Statements   : 100% ( 36/36 )

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Relatório Técnico — CalculadoraEmprestimo</title>
+<style>
+  @page { size: A4; margin: 13mm 14mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font: 9.6pt/1.42 "Segoe UI", system-ui, sans-serif; color: #1b1f27; margin: 0; }
+  h1 { font-size: 16pt; margin: 0; }
+  h2 { font-size: 11.5pt; margin: 12px 0 5px; padding-bottom: 2px; border-bottom: 1.5px solid #2b5797; color: #1f3f73; break-after: avoid; }
+  h3 { font-size: 10pt; margin: 8px 0 3px; break-after: avoid; }
+  p { margin: 3px 0 6px; text-align: justify; }
+  code { font: 8.6pt Consolas, monospace; background: #f0f2f6; padding: 0 3px; border-radius: 3px; }
+  table { border-collapse: collapse; width: 100%; font-size: 8.3pt; margin: 3px 0 8px; break-inside: auto; }
+  tr { break-inside: avoid; }
+  th, td { border: 1px solid #c9cfda; padding: 2.5px 5px; text-align: left; vertical-align: top; }
+  th { background: #e8edf5; font-weight: 600; }
+  td.c, th.c { text-align: center; }
+  .morto { color: #1f7a4d; font-weight: 700; }
+  .sobrev { color: #b42318; font-weight: 700; }
+  .inv { color: #9a3412; }
+  figure { margin: 4px 0 8px; break-inside: avoid; }
+  figure img { display: block; max-width: 100%; border: 1px solid #c9cfda; border-radius: 4px; }
+  figcaption { font-size: 8pt; color: #5b6475; margin-top: 2px; }
+  .capa { border: 1.5px solid #2b5797; border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; }
+  .capa .sub { color: #5b6475; margin: 2px 0 6px; }
+  .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 18px; font-size: 8.8pt; }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+  .nota { font-size: 8.3pt; color: #4a5263; }
+  .quebra { break-before: page; }
+  ul { margin: 2px 0 6px 18px; padding: 0; } li { margin: 1px 0; }
+</style>
+</head>
+<body>
+
+<div class="capa">
+  <h1>Relatório Técnico — Módulo <code style="font-size:13pt">CalculadoraEmprestimo</code></h1>
+  <p class="sub">Projeto, implementação (TDD) e validação de regras de negócio — biblioteca universitária</p>
+  <div class="meta">
+    <div><b>Aluno:</b> [NOME DO ALUNO] (trabalho individual)</div>
+    <div><b>Disciplina:</b> [DISCIPLINA] — Prof.ª [NOME]</div>
+    <div><b>Repositório:</b> [LINK DO REPOSITÓRIO GITHUB]</div>
+    <div><b>Data:</b> 23/11/2026</div>
+  </div>
+</div>
+
+<h2>1. Visão geral da solução</h2>
+<p><b>Stack:</b> TypeScript 5.9 (modo <code>strict</code>) sobre Node.js 24; <b>Vitest 5</b> (testes unitários) com
+<b>@vitest/coverage-v8</b> (cobertura de linhas e ramos); <b>ESLint 10 + typescript-eslint + eslint-plugin-sonarjs</b>
+(análise estática com as regras do SonarQube); <b>Stryker Mutator</b> (mutação automática, complementar à manual);
+<b>React 19 + Vite 8</b> (interface de demonstração que consome o módulo). O domínio (<code>src/domain</code>) não depende de
+UI: <code>CalculadoraEmprestimo.ts</code> (métodos <code>validarEmprestimo</code> e <code>calcularMulta</code>),
+<code>regras.ts</code> (tabela de limites/prazos e constantes financeiras), <code>validacoes.ts</code>, <code>erros.ts</code>
+(<code>ArgumentoInvalidoError</code> ≙ <i>IllegalArgumentException</i>; <code>RegraNegocioError</code> com <code>motivo</code>
+<code>PENDENCIA</code> | <code>LIMITE_EXCEDIDO</code>). Comandos: <code>npm test</code>, <code>npm run coverage</code>,
+<code>npm run lint</code>, <code>npm run mutantes</code>, <code>npm run mutation:auto</code>, <code>npm run dev</code>.</p>
+
+<h2>2. Partição de Equivalência</h2>
+<p>Classes derivadas <b>somente da especificação</b>, antes do código (<code>docs/casos-de-teste.md</code>, commit 2).</p>
+<table>
+  <tr><th>Req.</th><th>Entrada</th><th>Classes válidas</th><th>Classes inválidas (→ <code>ArgumentoInvalidoError</code>)</th></tr>
+  <tr><td>RF01/02</td><td>perfil</td><td>CE01 <code>GRADUACAO</code> (lim. 3 / 15 d); CE02 <code>POS_GRADUACAO</code> (lim. 5 / 30 d); CE03 <code>PROFESSOR</code> (lim. 10 / 45 d)</td><td class="inv">CE04 nulo/indefinido; CE05 desconhecido (<code>'VISITANTE'</code>); não-string (array, objeto, número)</td></tr>
+  <tr><td>RF01</td><td>livros emprestados</td><td>CE06 inteiro ≥ 0</td><td class="inv">CE07 negativo; CE08 não inteiro / <code>NaN</code></td></tr>
+  <tr><td>RF01</td><td>livros solicitados</td><td>CE09 inteiro ≥ 1</td><td class="inv">CE10 zero ou negativo; CE11 não inteiro / <code>Infinity</code></td></tr>
+  <tr><td>RF01</td><td>pendência</td><td>CE12 <code>false</code> (segue); CE13 <code>true</code> (→ <code>RegraNegocioError</code> PENDENCIA)</td><td class="inv">CE14 não booleano (<code>undefined</code>, <code>'sim'</code>)</td></tr>
+  <tr><td>RF01</td><td>atuais + solicitados</td><td>CE15 ≤ limite (aprovado); CE16 &gt; limite (→ <code>RegraNegocioError</code> LIMITE_EXCEDIDO)</td><td>—</td></tr>
+  <tr><td>RF02</td><td>dias de atraso</td><td>CE17 0–3 (R$ 0); CE18 4–10 (R$ 2,50 × d); CE19 11–34 (25 + 5 × (d − 10)); CE20 ≥ 35 (teto R$ 150)</td><td class="inv">CE21 negativo; CE22 não inteiro / <code>NaN</code></td></tr>
+</table>
+
+<h2>3. Análise do Valor Limite</h2>
+<p>Ponto do teto: para d &gt; 10, multa = 25 + 5(d − 10); 25 + 5(d − 10) = 150 ⇒ <b>d = 35</b>. Testes: 34 / 35 / 36 dias.</p>
+<div class="duas">
+<table>
+  <tr><th>ID</th><th>Perfil</th><th class="c">Atuais + Solic.</th><th>Fronteira</th><th>Esperado</th></tr>
+  <tr><td>CT01</td><td>Grad.</td><td class="c">0 + 3</td><td>= limite</td><td>aprova, 15 d</td></tr>
+  <tr><td>CT02</td><td>Grad.</td><td class="c">2 + 1</td><td>= limite</td><td>aprova</td></tr>
+  <tr><td>CT03</td><td>Grad.</td><td class="c">3 + 1</td><td>limite + 1</td><td>recusa (limite)</td></tr>
+  <tr><td>CT04</td><td>Grad.</td><td class="c">0 + 4</td><td>limite + 1</td><td>recusa (limite)</td></tr>
+  <tr><td>CT05</td><td>Pós</td><td class="c">4 + 1</td><td>= limite</td><td>aprova, 30 d</td></tr>
+  <tr><td>CT06</td><td>Pós</td><td class="c">5 + 1</td><td>limite + 1</td><td>recusa (limite)</td></tr>
+  <tr><td>CT07</td><td>Prof.</td><td class="c">9 + 1</td><td>= limite</td><td>aprova, 45 d</td></tr>
+  <tr><td>CT08</td><td>Prof.</td><td class="c">10 + 1</td><td>limite + 1</td><td>recusa (limite)</td></tr>
+  <tr><td>CT09</td><td>Grad.</td><td class="c">0 + 1</td><td>mínimo válido</td><td>aprova</td></tr>
+  <tr><td>CT10</td><td>Grad.</td><td class="c">−1 + 1</td><td>atuais = −1</td><td class="inv">ArgumentoInválido</td></tr>
+  <tr><td>CT11</td><td>Grad.</td><td class="c">0 + 0</td><td>solic. = 0</td><td class="inv">ArgumentoInválido</td></tr>
+  <tr><td>CT12</td><td>todos</td><td class="c">0 + 1</td><td>pendência = true</td><td>recusa (pendência)</td></tr>
+  <tr><td>CT19</td><td>Grad.</td><td class="c">3 + 5</td><td>pendência + limite</td><td>motivo = pendência</td></tr>
+</table>
+<table>
+  <tr><th>ID</th><th class="c">Dias</th><th>Fronteira</th><th>Cálculo</th><th>Esperado</th></tr>
+  <tr><td>CT20</td><td class="c">−1</td><td>abaixo do domínio</td><td>—</td><td class="inv">ArgumentoInválido</td></tr>
+  <tr><td>CT21</td><td class="c">0</td><td>início tolerância</td><td>—</td><td>R$ 0,00</td></tr>
+  <tr><td>CT22</td><td class="c">3</td><td>fim tolerância</td><td>—</td><td>R$ 0,00</td></tr>
+  <tr><td>CT23</td><td class="c">4</td><td>início 1ª faixa</td><td>4 × 2,50</td><td>R$ 10,00</td></tr>
+  <tr><td>CT24</td><td class="c">10</td><td>fim 1ª faixa</td><td>10 × 2,50</td><td>R$ 25,00</td></tr>
+  <tr><td>CT25</td><td class="c">11</td><td>início 2ª faixa</td><td>25 + 1 × 5</td><td>R$ 30,00</td></tr>
+  <tr><td>CT26</td><td class="c">34</td><td>teto − 1</td><td>25 + 24 × 5</td><td>R$ 145,00</td></tr>
+  <tr><td>CT27</td><td class="c">35</td><td><b>atinge o teto</b></td><td>25 + 25 × 5</td><td>R$ 150,00</td></tr>
+  <tr><td>CT28</td><td class="c">36</td><td>teto + 1</td><td>155 → teto</td><td>R$ 150,00</td></tr>
+  <tr><td>CT29</td><td class="c">1000</td><td>extremo</td><td>→ teto</td><td>R$ 150,00</td></tr>
+  <tr><td>CT30</td><td class="c">4,5 / NaN</td><td>não inteiro</td><td>—</td><td class="inv">ArgumentoInválido</td></tr>
+  <tr><td>CT31</td><td class="c">5</td><td>perfil nulo/desc.</td><td>—</td><td class="inv">ArgumentoInválido</td></tr>
+  <tr><td>CT32</td><td class="c">15</td><td>3 perfis</td><td>25 + 5 × 5</td><td>R$ 50,00 (todos)</td></tr>
+</table>
+</div>
+<p class="nota">Representantes de classe: CE18 (7 d → R$ 17,50) e CE19 (20 d → R$ 75,00). Inválidos sem fronteira numérica:
+CT13–CT18 (perfil nulo/indefinido/desconhecido, livros não inteiros/infinito, pendência não booleana). Complementares
+criados pela análise de mutação: CT33–CT38 (seção 6).</p>
+
+<h2>4. Ciclo TDD e histórico Git</h2>
+<p>Cada incremento seguiu <b>RED → GREEN → REFACTOR</b>: o teste foi commitado falhando (saídas salvas em
+<code>docs/evidencias/01-red-*.txt</code>, <code>03-red-*</code>, <code>05-red-*</code>, <code>07-red-*</code>) e só então o código
+mínimo que o fazia passar. Todo método de teste segue o padrão <b>AAA</b>, com os blocos <code>// Arrange</code>,
+<code>// Act</code>, <code>// Assert</code> explícitos; o <i>Act</i> de exceções é capturado em uma função
+(<code>const acao = () =&gt; …</code>) e verificado no <i>Assert</i>.</p>
+<figure><img src="img/git-log.png" style="width:86%"><figcaption>Figura 1 — Histórico de commits (ordem cronológica): 4 ciclos RED/GREEN, refatoração, mutação e UI.</figcaption></figure>
+
+<h2>5. Execução da suíte e cobertura de código</h2>
+<div class="duas">
+  <figure><img src="img/suite.png"><figcaption>Figura 2 — Suíte final: 53 testes em 5 arquivos, todos passando.</figcaption></figure>
+  <div>
+    <figure><img src="img/cobertura-texto.png"><figcaption>Figura 3 — Cobertura v8: <b>100% linhas e 100% ramos</b> (16/16).</figcaption></figure>
+    <p>A primeira medição (após o ciclo GREEN do teto) já resultou em 100% de linhas (45/45) e de ramos (38/38), pois os
+    testes foram derivados da AVL, que exercita os dois lados de cada decisão. Após a refatoração o código passou a ter
+    16 ramos (menos decisões), mantidos em 100%. O limite mínimo de 90% está configurado como
+    <i>threshold</i> em <code>vitest.config.ts</code>: abaixo disso, <code>npm run coverage</code> falha.</p>
+  </div>
+</div>
+<figure><img src="img/cobertura-html.png" style="width:80%"><figcaption>Figura 4 — Relatório HTML de cobertura (<code>coverage/index.html</code>).</figcaption></figure>
+
+<h2>6. Análise de mutação</h2>
+<h3>6.1 Mutantes manuais (um por vez, com reversão automática — <code>scripts/mutantes.mjs</code>)</h3>
+<table>
+  <tr><th>ID</th><th>Tipo de defeito</th><th>Local</th><th>Original → Mutante</th><th class="c">Testes que falharam</th><th class="c">Resultado</th><th>Ajuste na suíte</th></tr>
+  <tr><td>M1</td><td>Operador relacional</td><td><code>validarEmprestimo</code></td><td><code>total &gt; limite</code> → <code>total &gt;= limite</code></td><td class="c">4/43 (CT01, CT02, CT05, CT07)</td><td class="c morto">MORTO</td><td>Nenhum — fronteira “= limite” já testada</td></tr>
+  <tr><td>M2</td><td>Constante financeira</td><td><code>regras.ts</code></td><td><code>VALOR_DIA_PRIMEIRA_FAIXA: 2.5</code> → <code>2.0</code></td><td class="c">8/43 (CT23–CT27…)</td><td class="c morto">MORTO</td><td>Nenhum</td></tr>
+  <tr><td>M3</td><td>Inversão de condição lógica</td><td><code>validarEmprestimo</code></td><td><code>if (possuiPendencia)</code> → <code>if (!possuiPendencia)</code></td><td class="c">13/43 (CT12, CT19, CT01…)</td><td class="c morto">MORTO</td><td>Nenhum</td></tr>
+</table>
+<p>Após cada mutante o código original foi restaurado (o script reverte em um bloco <code>finally</code> e roda a suíte
+novamente: 43/43 passando). Escore manual: <b>3/3 = 100%</b>.</p>
+
+<h3>6.2 Mutação automática (Stryker) — onde 100% de cobertura não bastou</h3>
+<div class="duas">
+<figure><img src="img/stryker.png"><figcaption>Figura 5 — Stryker: 82,61% (12 sobreviventes) → 100% (69/69 mortos).</figcaption></figure>
+<div>
+<p>Com <b>100% de cobertura</b>, o Stryker gerou 69 mutantes e <b class="sobrev">12 sobreviveram</b>:</p>
+<ul>
+  <li><b>11 <code>StringLiteral</code></b>: mensagens e <code>name</code> das exceções trocadas por <code>""</code>. Os testes
+  verificavam apenas o <i>tipo</i> do erro, não o conteúdo exibido ao usuário.</li>
+  <li><b>1 <code>ConditionalExpression</code></b>: <code>typeof perfil !== 'string'</code> → <code>false</code>. Revelou um
+  defeito latente: sem a checagem, <code>['GRADUACAO']</code> seria aceito, pois <code>Object.hasOwn</code> converte o array
+  para a chave <code>"GRADUACAO"</code>.</li>
+</ul>
+<p><b>Ajuste:</b> criação de <code>tests/mensagens-erro.test.ts</code> (CT33–CT38: perfil não-string, mensagens com campo,
+valor e mínimo; motivo e texto das recusas). Resultado: <b class="morto">69/69 mortos (100%)</b>.</p>
+</div>
+</div>
+
+<h2>7. Análise estática — antes × depois</h2>
+<p>Ferramenta: ESLint com <code>typescript-eslint</code> e <code>eslint-plugin-sonarjs</code> (regras do SonarQube), aplicada a
+código-fonte e testes. Limiares: complexidade ciclomática ≤ 5, cognitiva ≤ 8, ≤ 30 linhas por função, ≤ 4 parâmetros.
+O código GREEN foi escrito propositalmente “mínimo para passar” (etapa natural do TDD) e então refatorado.</p>
+<figure><img src="img/lint-antes.png"><figcaption>Figura 6 — Apontamentos iniciais (commit <code>f6d8a19</code>): 41 problemas (19 erros, 22 avisos).</figcaption></figure>
+<div class="duas">
+<table>
+  <tr><th>Regra (categoria)</th><th class="c">Antes</th><th class="c">Depois</th></tr>
+  <tr><td><code>no-magic-numbers</code> (números mágicos)</td><td class="c">15</td><td class="c">0</td></tr>
+  <tr><td><code>eqeqeq</code> (<code>==</code>/<code>!=</code> sem tipo)</td><td class="c">10</td><td class="c">0</td></tr>
+  <tr><td><code>no-var</code> / <code>prefer-const</code></td><td class="c">4</td><td class="c">0</td></tr>
+  <tr><td><code>no-useless-assignment</code>, <code>sonarjs/no-redundant-assignments</code></td><td class="c">4</td><td class="c">0</td></tr>
+  <tr><td><code>complexity</code> / <code>sonarjs/cognitive-complexity</code></td><td class="c">3</td><td class="c">0</td></tr>
+  <tr><td><code>max-lines-per-function</code> (método longo)</td><td class="c">1</td><td class="c">0</td></tr>
+  <tr><td><code>object-shorthand</code>, <code>no-redundant-boolean</code></td><td class="c">3</td><td class="c">0</td></tr>
+  <tr><td><code>id-length</code> (nomenclatura: <code>d</code>)</td><td class="c">1</td><td class="c">0</td></tr>
+  <tr><th>Total</th><th class="c">41</th><th class="c">0</th></tr>
+</table>
+<table>
+  <tr><th>Função</th><th class="c">Ciclomática</th><th class="c">Cognitiva</th></tr>
+  <tr><td><code>validarEmprestimo</code></td><td class="c">12 → 3</td><td class="c">10 → 2</td></tr>
+  <tr><td><code>calcularMulta</code></td><td class="c">10 → 2</td><td class="c">7 → 1</td></tr>
+  <tr><td><code>garantirPerfilValido</code> (nova)</td><td class="c">3</td><td class="c">1</td></tr>
+  <tr><td><code>garantirInteiroMinimo</code> (nova)</td><td class="c">3</td><td class="c">1</td></tr>
+  <tr><td><code>garantirBooleano</code> (nova)</td><td class="c">2</td><td class="c">1</td></tr>
+  <tr><td colspan="3" class="nota"><b>Refatorações:</b> cadeia <code>if/else</code> por perfil → tabela <code>REGRAS_POR_PERFIL</code>;
+  literais → <code>REGRAS_MULTA</code>; faixas → <code>Math.min</code> (1ª faixa e teto); validações extraídas e
+  reutilizadas pelos dois métodos; <code>===</code>, <code>const</code>, <i>shorthand</i>.</td></tr>
+</table>
+</div>
+<figure><img src="img/lint-depois.png" style="width:70%"><figcaption>Figura 7 — Após a refatoração: 0 problemas (inclui UI React e scripts); 53 testes seguem passando.</figcaption></figure>
+<figure><img src="img/ui.png" style="width:62%"><figcaption>Figura 8 — Interface React consumindo o módulo (<code>npm run dev</code>).</figcaption></figure>
+
+<h2>8. Parecer técnico</h2>
+<p>Este trabalho demonstra na prática por que <b>100% de cobertura não garante ausência de defeitos</b>: a suíte já cobria
+todas as linhas e todos os ramos quando o Stryker encontrou 12 mutantes sobreviventes — inclusive um defeito real
+(perfis do tipo array sendo aceitos). Cobertura mede apenas que o código <i>foi executado</i>, não que seu resultado
+foi <i>verificado</i>: um teste sem asserções relevantes, ou que confere só o tipo da exceção, cobre a linha sem
+detectar o erro. Além disso, cobertura não enxerga requisitos ausentes ou mal interpretados (o código só pode ser
+fiel ao que foi especificado), combinações de valores que percorrem os mesmos ramos, nem problemas de integração,
+desempenho ou usabilidade. Por isso a cobertura funciona melhor como <i>indicador negativo</i> (revela o que não
+foi testado) e deve ser combinada com técnicas que avaliam a <i>qualidade</i> dos testes, como a análise de mutação,
+e com técnicas de projeto de casos como Partição de Equivalência e Valor Limite.</p>
+<p>O <b>Princípio de Pareto (80/20)</b>, aplicado a testes, afirma que a maior parte dos defeitos se concentra em uma pequena
+parte do sistema — fronteiras de regras de negócio, cálculos financeiros, código complexo ou alterado com frequência. Em
+projetos reais, com prazo e orçamento limitados, ele orienta a <b>priorizar o esforço por risco</b>: concentrar testes
+rigorosos (AVL, mutação, revisão) nos 20% de maior impacto e probabilidade de falha, em vez de perseguir 100% de cobertura
+em código trivial. Neste módulo, essa parte crítica são os limites de livros por perfil, as transições de faixa da multa
+(3/4, 10/11 dias) e o teto (35 dias) — exatamente onde os mutantes M1 e M2 foram mortos. Métricas como complexidade
+ciclomática, histórico de defeitos e frequência de mudança ajudam a localizar esses 20% e a direcionar o investimento em
+testes onde ele traz mais retorno.</p>
+
+</body>
+</html>
