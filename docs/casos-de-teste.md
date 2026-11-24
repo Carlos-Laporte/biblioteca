@@ -99,3 +99,71 @@ o limite (pendência **e** limite estourado ⇒ motivo pendência).
 
 Casos complementares: CT30 dias não inteiro/NaN, CT31 perfil nulo/desconhecido na
 multa, CT32 multa independe do perfil (mesmo valor para os três perfis).
+
+Casos complementares guiados por mutação (Stryker): CT33–CT38 (perfil não-string e
+mensagens de erro) — ver `tests/mensagens-erro.test.ts`.
+
+## 3. Extensão — regras de datas e pendência (sistema completo)
+
+A especificação original recebe **dias de atraso** e um **indicador de pendência** prontos.
+Para o sistema completo (empréstimo e devolução reais), esses valores passam a ser
+**calculados** a partir de datas. As regras abaixo são novas e foram implementadas com TDD
+(`tests/datas.test.ts`, `tests/pendencias.test.ts`).
+
+### Suposições registradas
+
+| # | Suposição | Justificativa |
+|---|---|---|
+| S1 | Datas são **datas civis** (`AAAA-MM-DD`), sem hora | prazo e atraso são contados em dias |
+| S2 | Prazo e atraso em **dias corridos** | a especificação fala em "dias", sem citar dias úteis |
+| S3 | "Hoje" é calculado no fuso **America/Sao_Paulo** | a biblioteca opera no horário de Brasília |
+| S4 | Devolução **no dia previsto** não tem atraso (0 dia) | o prazo inclui o último dia |
+| S5 | Livro **em atraso** = data prevista **anterior** a hoje | consistente com S4 |
+| S6 | Pendência = multa não paga **ou** livro em atraso | RF01: "qualquer multa pendente ou livro em atraso" |
+
+### Funções
+
+```ts
+calcularDataDevolucao(dataEmprestimo, perfil)       // => data + prazo do perfil
+calcularDiasAtraso(dataPrevista, dataDevolucao)    // => max(0, devolução − prevista)
+hojeEmSaoPaulo(agora?)                              // => 'AAAA-MM-DD' no fuso de Brasília
+possuiPendencia({ multasEmAberto, datasPrevistasAtivas, hoje })
+contarLivrosEmUso(emprestimos)                      // => empréstimos sem data de devolução
+```
+
+### Partição de Equivalência
+
+| Entrada | Classe | Tipo | Representante | Esperado |
+|---|---|---|---|---|
+| data | CE23 data civil válida | Válida | `2026-03-10` | processa |
+| data | CE24 dia/mês inexistente | Inválida | `2026-02-30`, `2026-13-01` | `ArgumentoInvalidoError` |
+| data | CE25 formato diferente | Inválida | `10/03/2026`, `''` | `ArgumentoInvalidoError` |
+| data | CE26 não-string | Inválida | `null`, `20260310` | `ArgumentoInvalidoError` |
+| devolução vs. prevista | CE27 antes ou no dia | Válida | prevista ou antes | 0 dia |
+| devolução vs. prevista | CE28 depois | Válida | prevista + n | n dias |
+| multas em aberto | CE29 zero | Válida | 0 | não pendente (por multa) |
+| multas em aberto | CE30 ≥ 1 | Válida | 1 | pendente |
+| multas em aberto | CE31 negativo / não inteiro | Inválida | -1 | `ArgumentoInvalidoError` |
+| empréstimo ativo | CE32 prevista ≥ hoje | Válida | hoje, amanhã | não pendente |
+| empréstimo ativo | CE33 prevista < hoje | Válida | ontem | pendente |
+
+### Análise do Valor Limite
+
+| ID | Caso | Entrada | Esperado |
+|---|---|---|---|
+| CT39 | prazo Graduação | 2026-03-10 + 15 | 2026-03-25 |
+| CT40 | prazo Pós, virada de mês | 2026-03-10 + 30 | 2026-04-09 |
+| CT41 | prazo Professor, virada de ano | 2026-12-20 + 45 | 2027-02-03 |
+| CT42 | ano bissexto × comum | 2028-02-20 + 15 / 2027-02-20 + 15 | 2028-03-06 / 2027-03-07 |
+| CT43 | datas inválidas | `2026-02-30`, `2026-13-01`, `10/03/2026`, `''`, `null`, número | `ArgumentoInvalidoError` |
+| CT44 | perfil inválido no prazo | `'VISITANTE'` | `ArgumentoInvalidoError` |
+| CT45 | devolução antes / no dia previsto | prevista − 5 / prevista | 0 / 0 |
+| CT46 | 1, 3, 4, 10 e 11 dias depois | prevista + n | n (fronteiras da multa) |
+| CT47 | 35 dias de atraso → teto | prevista + 35 | multa R$ 150,00 |
+| CT48 | atraso atravessando fevereiro | 2028-02-28 → 2028-03-01 / 2027-02-28 → 2027-03-01 | 2 / 1 |
+| CT49 | "hoje" no fuso de Brasília | 2026-03-10T02:59Z / 2026-03-10T03:00Z | 2026-03-09 / 2026-03-10 |
+| CT50 | sem multa e sem ativos | 0, [] | não pendente |
+| CT51 | multa em aberto | 1 | pendente |
+| CT52 | prevista = hoje / amanhã / ontem | — | não / não / **sim** |
+| CT53 | entradas inválidas na pendência | multas -1, data inválida | `ArgumentoInvalidoError` |
+| CT54 | livros em uso | [ativo, devolvido, ativo] | 2 |

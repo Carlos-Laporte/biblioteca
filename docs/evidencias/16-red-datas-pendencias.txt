@@ -1,0 +1,463 @@
+
+ RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
+
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT50 — sem multas e sem empréstimos ativos não há pendência 10ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT51 — uma multa em aberto gera pendência 1ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — vence hoje: ainda no prazo 1ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — vence amanhã: no prazo 0ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — venceu ontem: em atraso 0ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — um em dia e outro em atraso 0ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — multas negativas lança ArgumentoInvalidoError 2ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — multas não inteiras lança ArgumentoInvalidoError 1ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — data atual inválida lança ArgumentoInvalidoError 1ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — data prevista inválida lança ArgumentoInvalidoError 1ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — com multa em aberto, a data atual ainda é validada 10ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/pendencias.test.ts > Extensão — livros em uso > CT54 — conta apenas os empréstimos sem data de devolução 0ms
+   → Não implementado
+ × tests/pendencias.test.ts > Extensão — livros em uso > CT54 — lista vazia resulta em zero livros em uso 0ms
+   → Não implementado
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT26 — teto − 1 dia: 34 dias => R$ 145 4ms
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT27 — ponto exato do teto: 35 dias => R$ 150 0ms
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT28 — teto + 1 dia: 36 dias => R$ 150 0ms
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > CT29 — valor extremo: 1000 dias => R$ 150 0ms
+ ✓ tests/multa-teto.test.ts > RF02 — Teto máximo da multa (R$ 150,00) > a multa nunca ultrapassa R$ 150,00 para 0..400 dias 1ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT33 — perfil não-string (array) é rejeitado mesmo se convertido para um perfil válido 3ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT33 — perfil não-string (objeto com toString) é rejeitado mesmo se convertido para um perfil válido 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT33 — perfil não-string (número) é rejeitado mesmo se convertido para um perfil válido 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT34 — erro de argumento identifica o perfil recebido e o nome da classe 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (livros emprestados) 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (livros solicitados) 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (dias de atraso) 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT36 — mensagem de pendência inválida identifica o campo 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT37 — recusa por pendência explica o motivo ao usuário 0ms
+ ✓ tests/mensagens-erro.test.ts > Complementares — robustez e mensagens de erro > CT38 — recusa por limite informa o total e o limite do perfil 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT21 — 0 dias de atraso: isenção (R$ 0,00) 3ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Tolerância (0 a 3 dias) > CT22 — 3 dias de atraso: isenção (R$ 0,00) 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT23 — 4 dias de atraso: R$ 10 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CE18 — 7 dias de atraso: R$ 17.5 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) > CT24 — 10 dias de atraso: R$ 25 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CT25 — 11 dias de atraso: R$ 30 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Segunda faixa (> 10 dias: 10 × 2,50 + R$ 5,00/dia excedente) > CE19 — 20 dias de atraso: R$ 75 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT20 — -1 dia de atraso lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (null) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > Entradas inválidas > CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError 0ms
+ ✓ tests/multa.test.ts > RF02 — Cálculo de multa por atraso > CT32 — a multa independe do perfil do usuário 2ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 4ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT02 — aprova 2 + 1 livros (total = limite) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT03 — recusa 3 + 1 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT04 — recusa 0 + 4 livros (limite + 1) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Graduação (limite 3, prazo 15 dias) > CT09 — aprova 0 + 1 livro (mínimo válido) 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 1ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Pós-Graduação (limite 5, prazo 30 dias) > CT06 — recusa 5 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
+ ✓ tests/elegibilidade.test.ts > RF01 — Elegibilidade e prazo de empréstimo > Professor (limite 10, prazo 45 dias) > CT08 — recusa 10 + 1 livros (limite + 1) 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 4ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Bloqueio por pendência > CT19 — pendência tem prioridade sobre o limite excedido 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT13 — nulo lança ArgumentoInvalidoError 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT14 — indefinido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Perfil inválido > CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (1.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Quantidade de livros inválida > CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+ ✓ tests/elegibilidade-bloqueios.test.ts > RF01 — Bloqueios e entradas inválidas > Indicador de pendência inválido > CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT39 — Graduação (+15) 6ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT40 — Pós-Graduação (+30), virada de mês 1ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT41 — Professor (+45), virada de ano 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT42 — ano bissexto (29/02 existe) 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT42 — ano comum (sem 29/02) 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-02-30") lança ArgumentoInvalidoError 4ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-13-01") lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-00-10") lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("10/03/2026") lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("") lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-3-10") lança ArgumentoInvalidoError 0ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida (" 2026-03-10") lança ArgumentoInvalidoError 0ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data não-string (null) lança ArgumentoInvalidoError 2ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data não-string (undefined) lança ArgumentoInvalidoError 1ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data não-string (20260310) lança ArgumentoInvalidoError 1ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — mensagem informa a data recebida 5ms
+   → expected 'Não implementado' to be 'Data de empréstimo inválida: 2026-02-…' // Object.is equality
+ × tests/datas.test.ts > Extensão — data prevista de devolução > CT44 — perfil inválido lança ArgumentoInvalidoError 1ms
+   → expected error to be instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — dias de atraso > CT45 — 5 dias antes 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT45 — no dia previsto 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT46 — 1 dia depois 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT46 — 3 dias (fim da tolerância) 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT46 — 4 dias (início da 1ª faixa) 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT46 — 10 dias (fim da 1ª faixa) 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT46 — 11 dias (início da 2ª faixa) 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT47 — 35 dias de atraso calculados por data geram a multa máxima 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT48 — fevereiro de ano bissexto 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT48 — fevereiro de ano comum 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT48 — virada de ano 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — dias de atraso > CT43 — data prevista inválida lança erro identificando o campo 0ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — dias de atraso > CT43 — data de devolução inválida lança erro identificando o campo 0ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — 02:59 UTC ainda é o dia anterior em Brasília 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — 03:00 UTC já é o novo dia em Brasília 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — virada de ano 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — sem argumento usa o relógio atual e devolve uma data civil 0ms
+   → Não implementado
+ × tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — instante inválido (Invalid Date) lança erro 2ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ × tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — instante inválido (hoje) lança erro 0ms
+   → expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 49 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT39 — Graduação (+15)
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT40 — Pós-Graduação (+30), virada de mês
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT41 — Professor (+45), virada de ano
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT42 — ano bissexto (29/02 existe)
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT42 — ano comum (sem 29/02)
+Error: Não implementado
+ ❯ calcularDataDevolucao src/domain/datas.ts:7:9
+      5|
+      6| export function calcularDataDevolucao(_dataEmprestimo: DataCivil, _per…
+      7|   throw new Error('Não implementado');
+       |         ^
+      8| }
+      9|
+ ❯ tests/datas.test.ts:27:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-02-30") lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-13-01") lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-00-10") lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("10/03/2026") lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("") lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida ("2026-3-10") lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data inválida (" 2026-03-10") lança ArgumentoInvalidoError
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/datas.test.ts:43:20
+     41|
+     42|       // Assert
+     43|       expect(acao).toThrow(ArgumentoInvalidoError);
+       |                    ^
+     44|     },
+     45|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data não-string (null) lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data não-string (undefined) lança ArgumentoInvalidoError
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — data não-string (20260310) lança ArgumentoInvalidoError
+AssertionError: expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ ❯ tests/datas.test.ts:55:18
+     53|
+     54|     // Assert
+     55|     expect(erro).toBeInstanceOf(ArgumentoInvalidoError);
+       |                  ^
+     56|     expect(erro.message).toBe(`Data de empréstimo inválida: ${String(v…
+     57|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT43 — mensagem informa a data recebida
+AssertionError: expected 'Não implementado' to be 'Data de empréstimo inválida: 2026-02-…' // Object.is equality
+
+Expected: "Data de empréstimo inválida: 2026-02-30"
+Received: "Não implementado"
+
+ ❯ tests/datas.test.ts:67:26
+     65|
+     66|     // Assert
+     67|     expect(erro.message).toBe('Data de empréstimo inválida: 2026-02-30…
+       |                          ^
+     68|   });
+     69|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data prevista de devolução > CT44 — perfil inválido lança ArgumentoInvalidoError
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/datas.test.ts:78:18
+     76|
+     77|     // Assert
+     78|     expect(acao).toThrow(ArgumentoInvalidoError);
+       |                  ^
+     79|   });
+     80| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT45 — 5 dias antes
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT45 — no dia previsto
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT46 — 1 dia depois
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT46 — 3 dias (fim da tolerância)
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT46 — 4 dias (início da 1ª faixa)
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT46 — 10 dias (fim da 1ª faixa)
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT46 — 11 dias (início da 2ª faixa)
+Error: Não implementado
+ ❯ calcularDiasAtraso src/domain/datas.ts:11:9
+      9|
+     10| export function calcularDiasAtraso(_dataPrevista: DataCivil, _dataDevo…
+     11|   throw new Error('Não implementado');
+       |         ^
+     12| }
+     13|
+ ❯ tests/datas.test.ts:97:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT47 — 35 dias de atraso calculados por data geram a multa máxima
+Error: Não implementado
+ ❯ calcularDiasAtraso src/domain/datas.ts:11:9
+      9|
+     10| export function calcularDiasAtraso(_dataPrevista: DataCivil, _dataDevo…
+     11|   throw new Error('Não implementado');
+       |         ^
+     12| }
+     13|
+ ❯ tests/datas.test.ts:108:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT48 — fevereiro de ano bissexto
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT48 — fevereiro de ano comum
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT48 — virada de ano
+Error: Não implementado
+ ❯ calcularDiasAtraso src/domain/datas.ts:11:9
+      9|
+     10| export function calcularDiasAtraso(_dataPrevista: DataCivil, _dataDevo…
+     11|   throw new Error('Não implementado');
+       |         ^
+     12| }
+     13|
+ ❯ tests/datas.test.ts:124:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT43 — data prevista inválida lança erro identificando o campo
+ FAIL  tests/datas.test.ts > Extensão — dias de atraso > CT43 — data de devolução inválida lança erro identificando o campo
+AssertionError: expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ ❯ tests/datas.test.ts:140:18
+    138|
+    139|     // Assert
+    140|     expect(erro).toBeInstanceOf(ArgumentoInvalidoError);
+       |                  ^
+    141|     expect(erro.message).toBe(mensagem);
+    142|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — 02:59 UTC ainda é o dia anterior em Brasília
+ FAIL  tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — 03:00 UTC já é o novo dia em Brasília
+ FAIL  tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — virada de ano
+Error: Não implementado
+ ❯ hojeEmSaoPaulo src/domain/datas.ts:15:9
+     13|
+     14| export function hojeEmSaoPaulo(_agora?: Date): DataCivil {
+     15|   throw new Error('Não implementado');
+       |         ^
+     16| }
+     17|
+ ❯ tests/datas.test.ts:155:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — sem argumento usa o relógio atual e devolve uma data civil
+Error: Não implementado
+ ❯ hojeEmSaoPaulo src/domain/datas.ts:15:9
+     13|
+     14| export function hojeEmSaoPaulo(_agora?: Date): DataCivil {
+     15|   throw new Error('Não implementado');
+       |         ^
+     16| }
+     17|
+ ❯ tests/datas.test.ts:166:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/19]⎯
+
+ FAIL  tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — instante inválido (Invalid Date) lança erro
+ FAIL  tests/datas.test.ts > Extensão — data de hoje no fuso de Brasília > CT49 — instante inválido (hoje) lança erro
+AssertionError: expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ ❯ tests/datas.test.ts:179:18
+    177|
+    178|     // Assert
+    179|     expect(erro).toBeInstanceOf(ArgumentoInvalidoError);
+       |                  ^
+    180|     expect(erro.message).toBe('Instante inválido para calcular a data …
+    181|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT50 — sem multas e sem empréstimos ativos não há pendência
+Error: Não implementado
+ ❯ possuiPendencia src/domain/pendencias.ts:14:9
+     12|
+     13| export function possuiPendencia(_situacao: SituacaoUsuario): boolean {
+     14|   throw new Error('Não implementado');
+       |         ^
+     15| }
+     16|
+ ❯ tests/pendencias.test.ts:22:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT51 — uma multa em aberto gera pendência
+Error: Não implementado
+ ❯ possuiPendencia src/domain/pendencias.ts:14:9
+     12|
+     13| export function possuiPendencia(_situacao: SituacaoUsuario): boolean {
+     14|   throw new Error('Não implementado');
+       |         ^
+     15| }
+     16|
+ ❯ tests/pendencias.test.ts:33:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — vence hoje: ainda no prazo
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — vence amanhã: no prazo
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — venceu ontem: em atraso
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT52 — um em dia e outro em atraso
+Error: Não implementado
+ ❯ possuiPendencia src/domain/pendencias.ts:14:9
+     12|
+     13| export function possuiPendencia(_situacao: SituacaoUsuario): boolean {
+     14|   throw new Error('Não implementado');
+       |         ^
+     15| }
+     16|
+ ❯ tests/pendencias.test.ts:49:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — multas negativas lança ArgumentoInvalidoError
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — multas não inteiras lança ArgumentoInvalidoError
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — data atual inválida lança ArgumentoInvalidoError
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — data prevista inválida lança ArgumentoInvalidoError
+AssertionError: expected Error: Não implementado to be an instance of ArgumentoInvalidoError
+ ❯ tests/pendencias.test.ts:71:18
+     69|
+     70|     // Assert
+     71|     expect(erro).toBeInstanceOf(ArgumentoInvalidoError);
+       |                  ^
+     72|     expect(erro.message).toBe(mensagem);
+     73|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — pendência do usuário > CT53 — com multa em aberto, a data atual ainda é validada
+AssertionError: expected error to be instance of ArgumentoInvalidoError
+
+- Expected:
+[Function ArgumentoInvalidoError]
+
++ Received:
+Error {
+  "message": "Não implementado",
+}
+
+ ❯ tests/pendencias.test.ts:83:18
+     81|
+     82|     // Assert
+     83|     expect(acao).toThrow(ArgumentoInvalidoError);
+       |                  ^
+     84|   });
+     85| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — livros em uso > CT54 — conta apenas os empréstimos sem data de devolução
+Error: Não implementado
+ ❯ contarLivrosEmUso src/domain/pendencias.ts:18:9
+     16|
+     17| export function contarLivrosEmUso(_emprestimos: readonly EmprestimoRes…
+     18|   throw new Error('Não implementado');
+       |         ^
+     19| }
+     20|
+ ❯ tests/pendencias.test.ts:93:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/19]⎯
+
+ FAIL  tests/pendencias.test.ts > Extensão — livros em uso > CT54 — lista vazia resulta em zero livros em uso
+Error: Não implementado
+ ❯ contarLivrosEmUso src/domain/pendencias.ts:18:9
+     16|
+     17| export function contarLivrosEmUso(_emprestimos: readonly EmprestimoRes…
+     18|   throw new Error('Não implementado');
+       |         ^
+     19| }
+     20|
+ ❯ tests/pendencias.test.ts:104:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/19]⎯
+
+
+ Test Files  2 failed | 5 passed (7)
+      Tests  49 failed | 53 passed (102)
+   Start at  10:41:08
+   Duration  1.89s (transform 54%, import 31%, tests 9%, worker 6%)
+
