@@ -1,5 +1,9 @@
 import { defineConfig } from 'vitest/config';
 
+// Fuso fixo e diferente do de Brasília: garante que o domínio converta o fuso explicitamente,
+// e que os testes deem o mesmo resultado em qualquer máquina (inclusive no CI).
+process.env.TZ = 'UTC';
+
 export default defineConfig({
   test: {
     include: ['tests/**/*.test.ts'],
