@@ -17,30 +17,43 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "evidencias": "node scripts/gerar-evidencias.mjs",
-    "qualidade": "npm run typecheck && npm run lint && npm run coverage && npm run mutantes && npm run mutation:auto",
+    "qualidade": "npm run typecheck && npm run lint && npm run coverage && npm run coverage:api && npm run mutantes && npm run mutation:auto",
     "docker:subir": "node scripts/docker.mjs subir",
     "docker:qualidade": "node scripts/docker.mjs qualidade",
     "docker:parar": "node scripts/docker.mjs parar",
-    "docker:logs": "node scripts/docker.mjs logs"
+    "docker:logs": "node scripts/docker.mjs logs",
+    "dev:api": "tsx watch api/src/main.ts",
+    "test:api": "vitest run -c vitest.api.config.ts",
+    "coverage:api": "vitest run -c vitest.api.config.ts --coverage",
+    "db:gerar": "drizzle-kit generate"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stryker-mutator/core": "^10.1.1",
     "@stryker-mutator/vitest-runner": "^10.1.1",
+    "@testcontainers/postgresql": "^12.2.2",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
     "@vitest/coverage-v8": "^5.1.1",
+    "drizzle-kit": "^0.31.11",
     "eslint": "^10.15.0",
     "eslint-plugin-sonarjs": "^4.2.2",
     "globals": "^17.14.0",
+    "testcontainers": "^12.2.2",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.73.0",
     "vite": "^8.3.8",
     "vitest": "^5.1.1"
   },
   "dependencies": {
+    "drizzle-orm": "^0.45.4",
+    "fastify": "^5.12.8",
+    "pg": "^8.23.1",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "tsx": "^4.23.15",
+    "zod": "^4.6.7"
   }
 }

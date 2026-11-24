@@ -5,7 +5,7 @@ import sonarjs from 'eslint-plugin-sonarjs';
 import globals from 'globals';
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', 'reports', 'node_modules', '.stryker-tmp', 'docs'] },
+  { ignores: ['dist', 'coverage', 'reports', 'node_modules', '.stryker-tmp', 'docs', 'relatorios-docker', 'playwright-report', 'test-results'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   sonarjs.configs.recommended,
@@ -48,10 +48,15 @@ export default tseslint.config(
   },
   {
     // Nos testes, números literais são os próprios dados de teste (valores-limite).
-    files: ['tests/**/*.ts'],
+    files: ['tests/**/*.ts', 'api/tests/**/*.ts', 'e2e/**/*.ts', 'src/**/*.test.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-magic-numbers': 'off',
       'max-lines-per-function': 'off',
     },
+  },
+  {
+    // Dados de exemplo (seed): os números são os próprios dados fictícios, como nos testes.
+    files: ['api/src/db/seed.ts'],
+    rules: { '@typescript-eslint/no-magic-numbers': 'off' },
   },
 );

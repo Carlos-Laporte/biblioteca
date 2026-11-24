@@ -1,0 +1,399 @@
+{
+  "id": "4c5db052-f89d-4f58-a9b6-2995664e06a5",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.emprestimos": {
+      "name": "emprestimos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "usuario_id": {
+          "name": "usuario_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "livro_id": {
+          "name": "livro_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_emprestimo": {
+          "name": "data_emprestimo",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_prevista": {
+          "name": "data_prevista",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_devolucao": {
+          "name": "data_devolucao",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "emprestimos_usuario_idx": {
+          "name": "emprestimos_usuario_idx",
+          "columns": [
+            {
+              "expression": "usuario_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "emprestimos_livro_idx": {
+          "name": "emprestimos_livro_idx",
+          "columns": [
+            {
+              "expression": "livro_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "emprestimos_usuario_id_usuarios_id_fk": {
+          "name": "emprestimos_usuario_id_usuarios_id_fk",
+          "tableFrom": "emprestimos",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "usuario_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "emprestimos_livro_id_livros_id_fk": {
+          "name": "emprestimos_livro_id_livros_id_fk",
+          "tableFrom": "emprestimos",
+          "tableTo": "livros",
+          "columnsFrom": [
+            "livro_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "emprestimos_prevista_valida": {
+          "name": "emprestimos_prevista_valida",
+          "value": "\"emprestimos\".\"data_prevista\" >= \"emprestimos\".\"data_emprestimo\""
+        },
+        "emprestimos_devolucao_valida": {
+          "name": "emprestimos_devolucao_valida",
+          "value": "\"emprestimos\".\"data_devolucao\" IS NULL OR \"emprestimos\".\"data_devolucao\" >= \"emprestimos\".\"data_emprestimo\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.livros": {
+      "name": "livros",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "autor": {
+          "name": "autor",
+          "type": "varchar(160)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isbn": {
+          "name": "isbn",
+          "type": "varchar(17)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ano": {
+          "name": "ano",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "exemplares_total": {
+          "name": "exemplares_total",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "livros_isbn_unique": {
+          "name": "livros_isbn_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "isbn"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "livros_exemplares_positivos": {
+          "name": "livros_exemplares_positivos",
+          "value": "\"livros\".\"exemplares_total\" >= 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.multas": {
+      "name": "multas",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "emprestimo_id": {
+          "name": "emprestimo_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usuario_id": {
+          "name": "usuario_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dias_atraso": {
+          "name": "dias_atraso",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_centavos": {
+          "name": "valor_centavos",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "paga_em": {
+          "name": "paga_em",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "multas_usuario_idx": {
+          "name": "multas_usuario_idx",
+          "columns": [
+            {
+              "expression": "usuario_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "multas_emprestimo_id_emprestimos_id_fk": {
+          "name": "multas_emprestimo_id_emprestimos_id_fk",
+          "tableFrom": "multas",
+          "tableTo": "emprestimos",
+          "columnsFrom": [
+            "emprestimo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "multas_usuario_id_usuarios_id_fk": {
+          "name": "multas_usuario_id_usuarios_id_fk",
+          "tableFrom": "multas",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "usuario_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "multas_emprestimo_id_unique": {
+          "name": "multas_emprestimo_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "emprestimo_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "multas_valor_positivo": {
+          "name": "multas_valor_positivo",
+          "value": "\"multas\".\"valor_centavos\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.usuarios": {
+      "name": "usuarios",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "matricula": {
+          "name": "matricula",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(160)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "perfil": {
+          "name": "perfil",
+          "type": "perfil_usuario",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ativo": {
+          "name": "ativo",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "usuarios_matricula_unique": {
+          "name": "usuarios_matricula_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "matricula"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.perfil_usuario": {
+      "name": "perfil_usuario",
+      "schema": "public",
+      "values": [
+        "GRADUACAO",
+        "POS_GRADUACAO",
+        "PROFESSOR"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
