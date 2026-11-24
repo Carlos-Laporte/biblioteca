@@ -38,7 +38,7 @@ function BarraLateral() {
   const escuro = tema === 'escuro';
   return (
     <aside className="lateral">
-      <NavLink to="/" className="marca" aria-label="Biblioteca UniRV — início">
+      <NavLink to="/" className="marca">
         <span className="marca-icone">
           <Library size={22} aria-hidden="true" />
         </span>
@@ -49,8 +49,8 @@ function BarraLateral() {
       </NavLink>
       <Navegacao />
       <div className="lateral-rodape">
-        <Botao icone={escuro ? Sun : Moon} onClick={alternar} aria-label={escuro ? 'Ativar tema claro' : 'Ativar tema escuro'}>
-          {escuro ? 'Tema claro' : 'Tema escuro'}
+        <Botao icone={escuro ? Sun : Moon} onClick={alternar} aria-pressed={escuro}>
+          Tema escuro
         </Botao>
         <small>Projeto acadêmico — não é um sistema oficial da UniRV.</small>
       </div>

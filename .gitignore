@@ -6,3 +6,5 @@ reports/
 *.log
 .vitest/
 relatorios-docker/
+playwright-report/
+test-results/

@@ -38,7 +38,8 @@ const classeColuna = (numerica?: boolean) => (numerica ? 'numero' : undefined);
 
 function TabelaHtml<T>({ legenda, colunas, itens, chave }: Omit<PropsTabela<T>, 'vazio' | 'porPagina'>) {
   return (
-    <div className="tabela-contorno">
+    // Região rolável no celular: focável para quem navega pelo teclado (WCAG 2.1.1).
+    <div className="tabela-contorno" role="region" aria-label={legenda} tabIndex={0}>
       <table className="tabela">
         <caption className="visualmente-oculto">{legenda}</caption>
         <thead>

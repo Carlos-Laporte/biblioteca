@@ -78,7 +78,7 @@ export function Indicador({ rotulo, valor, icone, tom = 'primario', detalhe }: P
       <div>
         <span className="indicador-valor">{valor}</span>
         <span className="indicador-rotulo">{rotulo}</span>
-        {detalhe && <span className="indicador-rotulo"> · {detalhe}</span>}
+        {detalhe && <span className="indicador-detalhe">{detalhe}</span>}
       </div>
     </article>
   );

@@ -116,11 +116,11 @@ describe('UI — páginas', () => {
     const { usuario } = renderizar(<Layout />);
 
     // Act
-    await usuario.click(screen.getByRole('button', { name: 'Ativar tema escuro' }));
+    await usuario.click(screen.getByRole('button', { name: 'Tema escuro', pressed: false }));
 
     // Assert
     expect(document.documentElement.dataset.tema).toBe('escuro');
     expect(localStorage.getItem('biblioteca-tema')).toBe('escuro');
-    expect(screen.getByRole('button', { name: 'Ativar tema claro' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Tema escuro' })).toHaveAttribute('aria-pressed', 'true');
   });
 });

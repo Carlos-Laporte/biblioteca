@@ -44,7 +44,7 @@ function Indicadores({ painel }: { readonly painel: DadosPainel }) {
       <Indicador
         rotulo="Usuários bloqueados"
         valor={painel.usuariosBloqueados}
-        detalhe={`de ${painel.totalUsuarios}`}
+        detalhe={`de ${painel.totalUsuarios} cadastrados`}
         icone={UserX}
         tom={painel.usuariosBloqueados ? 'erro' : 'sucesso'}
       />

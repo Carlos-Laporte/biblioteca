@@ -273,7 +273,15 @@ code {
   .navegacao a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--unirv-verde-apoio); }
 
   .lateral-rodape { margin: 0; justify-content: center; }
-  .lateral-rodape .botao span { display: none; }
+  /* Texto escondido só visualmente: o botão mantém o nome acessível */
+  .lateral-rodape .botao span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
 
   .principal { padding: var(--esp-5) var(--esp-4) 104px; }
   .rodape { padding-bottom: 96px; }

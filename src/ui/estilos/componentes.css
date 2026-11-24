@@ -56,7 +56,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-.indicador-rotulo { color: var(--texto-suave); font-size: var(--tamanho-sm); }
+.indicador-rotulo { display: block; color: var(--texto-suave); font-size: var(--tamanho-sm); }
+.indicador-detalhe { display: block; color: var(--texto-suave); font-size: var(--tamanho-xs); }
 
 /* ---------- Botão ---------- */
 .botao {
@@ -230,6 +231,7 @@
 .tabela tbody tr:last-child td { border-bottom: 0; }
 .tabela tbody tr { transition: background var(--transicao); }
 .tabela tbody tr:hover { background: color-mix(in srgb, var(--primaria-suave) 45%, transparent); }
+.tabela td a { white-space: nowrap; }
 .tabela .numero { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .paginacao {
@@ -426,7 +428,7 @@
 .lista-selecao small { display: block; color: var(--texto-suave); }
 
 /* ---------- Resumo (lista de pares) ---------- */
-.resumo { display: grid; grid-template-columns: max-content 1fr; gap: var(--esp-2) var(--esp-4); margin: 0; font-size: var(--tamanho-sm); }
+.resumo { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--esp-2) var(--esp-4); margin: 0; font-size: var(--tamanho-sm); }
 .resumo dt { color: var(--texto-suave); }
-.resumo dd { margin: 0; font-weight: var(--peso-destaque); }
+.resumo dd { margin: 0; min-width: 0; font-weight: var(--peso-destaque); overflow-wrap: anywhere; }
 .valor-destaque { font-size: var(--tamanho-2xl); font-weight: var(--peso-titulo); font-variant-numeric: tabular-nums; }

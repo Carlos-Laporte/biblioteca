@@ -70,12 +70,12 @@ const CENARIO: ReadonlyArray<readonly [number, number, number, number | null, bo
   [1, 11, 10, null, false],
   [1, 14, 2, null, false],
   [2, 3, 20, null, false], // Carla: livro em atraso → bloqueada
-  [3, 12, 40, 30, false], // Daniel: devolveu com 15 dias de atraso, multa em aberto → bloqueado
+  [3, 12, 50, 20, false], // Daniel: prevista há 35 dias, devolveu há 20 → 15 dias de atraso, R$ 50,00 em aberto → bloqueado
   [4, 4, 60, 40, true], // Eduarda: multa já paga
   [5, 17, 14, null, false], // Felipe: vence amanhã
   [7, 16, 25, null, false], // Heitor (Pós): em dia
   [7, 19, 25, null, false],
-  [8, 20, 70, 20, false], // Isabela: 50 dias de atraso → teto R$ 150
+  [8, 20, 90, 5, false], // Isabela (Pós): prevista há 60 dias, devolveu há 5 → 55 dias → teto R$ 150,00
   [9, 2, 31, null, false], // João: 1 dia de atraso
   [12, 21, 30, null, false], // Profa. Natália: 6 livros
   [12, 22, 30, null, false],

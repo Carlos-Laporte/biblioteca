@@ -27,10 +27,13 @@
     "coverage:api": "vitest run -c vitest.api.config.ts --coverage",
     "db:gerar": "drizzle-kit generate",
     "test:ui": "vitest run -c vitest.ui.config.ts",
-    "contraste": "node scripts/contraste.mjs"
+    "contraste": "node scripts/contraste.mjs",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.1",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "@stryker-mutator/core": "^10.1.1",
     "@stryker-mutator/vitest-runner": "^10.1.1",
     "@testcontainers/postgresql": "^12.2.2",
