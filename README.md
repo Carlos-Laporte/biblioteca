@@ -16,11 +16,57 @@ testes de integração com banco real e testes ponta a ponta.
 | Análise estática | ESLint + typescript-eslint + SonarJS — **0 apontamentos** (eram 41 no baseline do TDD) |
 | Infraestrutura | Docker Compose (db + api + app) com portão de qualidade; CI no GitHub Actions |
 
-## Como executar
+## Como rodar na máquina local
 
-**Windows, sem terminal:** com o Docker Desktop aberto, dê dois cliques em **`iniciar.bat`**.
-Ele constrói as imagens (os testes rodam nesse passo), sobe banco, API e interface, espera tudo
-responder e abre **http://localhost:8080**. Para desligar, use **`parar.bat`**.
+### Pré-requisitos
+
+| Ferramenta | Versão | Para quê |
+|---|---|---|
+| [Git](https://git-scm.com/downloads) | qualquer recente | baixar o projeto |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop/) | 4.x ou superior (Compose v2) | rodar banco, API e interface |
+| [Node.js](https://nodejs.org/) | 24 LTS (mínimo 20) | só para os comandos `npm` e para os testes fora do Docker |
+
+### Passo a passo (recomendado: tudo no Docker)
+
+```bash
+# 1. Baixe o projeto
+git clone https://github.com/Carlos-Laporte/biblioteca.git
+cd biblioteca
+
+# 2. Abra o Docker Desktop e espere ele iniciar
+
+# 3. Suba banco (PostgreSQL), API e interface
+docker compose up -d --build
+```
+
+Na primeira vez, a construção leva alguns minutos, porque os testes rodam dentro dela e a imagem só
+é criada se todos passarem. Quando terminar, acesse **http://localhost:8080**. O banco já vem com
+dados de exemplo (15 usuários, 30 livros, empréstimos em dia, atrasados e com multa).
+
+Para desligar: `docker compose down`. Os dados ficam salvos para a próxima vez.
+
+**Atalhos:**
+- **Windows, sem terminal:** dê dois cliques em **`iniciar.bat`** (sobe tudo e abre o navegador) e
+  em **`parar.bat`** para desligar.
+- **Com Node.js instalado:** `npm install` uma vez e depois `npm run docker:subir`.
+
+**Problemas comuns:**
+- *"Docker não está em execução":* abra o Docker Desktop e espere o ícone ficar verde.
+- *Porta 8080 ocupada:* troque `"8080:80"` por outra porta (ex.: `"8081:80"`) em `docker-compose.yml`.
+- *Quero começar do zero:* `npm run docker:resetar -- --sim` (apaga o banco local e recria os dados de exemplo).
+
+### Rodar os testes na máquina local
+
+```bash
+npm install
+npx playwright install chromium   # uma vez, para os testes ponta a ponta
+npm test                          # domínio + componentes
+npm run coverage:api              # API contra PostgreSQL real (precisa do Docker aberto)
+npm run docker:e2e                # sobe o sistema e roda o Playwright
+npm run docker:qualidade          # pipeline completo dentro do Docker
+```
+
+### Comandos de automação
 
 | Comando | O que faz |
 |---|---|
