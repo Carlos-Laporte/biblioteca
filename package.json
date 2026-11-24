@@ -5,7 +5,7 @@
   "description": "Módulo de regras de negócio de empréstimos e multas de uma biblioteca universitária (TDD + TypeScript).",
   "type": "module",
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest run && vitest run -c vitest.ui.config.ts",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
@@ -17,7 +17,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "evidencias": "node scripts/gerar-evidencias.mjs",
-    "qualidade": "npm run typecheck && npm run lint && npm run coverage && npm run coverage:api && npm run mutantes && npm run mutation:auto",
+    "qualidade": "npm run typecheck && npm run lint && npm run contraste && npm run coverage && npm run test:ui && npm run coverage:api && npm run mutantes && npm run mutation:auto",
     "docker:subir": "node scripts/docker.mjs subir",
     "docker:qualidade": "node scripts/docker.mjs qualidade",
     "docker:parar": "node scripts/docker.mjs parar",
@@ -25,13 +25,18 @@
     "dev:api": "tsx watch api/src/main.ts",
     "test:api": "vitest run -c vitest.api.config.ts",
     "coverage:api": "vitest run -c vitest.api.config.ts --coverage",
-    "db:gerar": "drizzle-kit generate"
+    "db:gerar": "drizzle-kit generate",
+    "test:ui": "vitest run -c vitest.ui.config.ts",
+    "contraste": "node scripts/contraste.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stryker-mutator/core": "^10.1.1",
     "@stryker-mutator/vitest-runner": "^10.1.1",
     "@testcontainers/postgresql": "^12.2.2",
+    "@testing-library/jest-dom": "^8.0.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.13",
     "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -41,6 +46,7 @@
     "eslint": "^10.15.0",
     "eslint-plugin-sonarjs": "^4.2.2",
     "globals": "^17.14.0",
+    "jsdom": "^31.0.1",
     "testcontainers": "^12.2.2",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.73.0",
@@ -48,11 +54,14 @@
     "vitest": "^5.1.1"
   },
   "dependencies": {
+    "@fontsource/montserrat": "^5.3.0",
     "drizzle-orm": "^0.45.4",
     "fastify": "^5.12.8",
+    "lucide-react": "^1.79.0",
     "pg": "^8.23.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "react-router": "^8.5.2",
     "tsx": "^4.23.15",
     "zod": "^4.6.7"
   }

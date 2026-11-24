@@ -48,7 +48,7 @@ export default tseslint.config(
   },
   {
     // Nos testes, números literais são os próprios dados de teste (valores-limite).
-    files: ['tests/**/*.ts', 'api/tests/**/*.ts', 'e2e/**/*.ts', 'src/**/*.test.{ts,tsx}'],
+    files: ['tests/**/*.ts', 'api/tests/**/*.ts', 'e2e/**/*.ts', 'src/**/*.test.{ts,tsx}', 'src/ui/testes/**'],
     rules: {
       '@typescript-eslint/no-magic-numbers': 'off',
       'max-lines-per-function': 'off',

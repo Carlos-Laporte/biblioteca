@@ -1,5 +1,37 @@
+# Sistema completo:  docker compose up -d --build   →  http://localhost:8080
+# Credenciais padrão servem SOMENTE para uso local; sobrescreva com um arquivo .env (veja .env.example).
+x-banco: &banco
+  POSTGRES_DB: ${POSTGRES_DB:-biblioteca}
+  POSTGRES_USER: ${POSTGRES_USER:-biblioteca}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-biblioteca_local}
+
 services:
-  # Interface React (build verificado) em http://localhost:8080
+  db:
+    image: postgres:17-alpine
+    environment: *banco
+    volumes:
+      - dados-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      target: api
+    image: calculadora-emprestimo-api:latest
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-biblioteca}:${POSTGRES_PASSWORD:-biblioteca_local}@db:5432/${POSTGRES_DB:-biblioteca}
+      SEED: ${SEED:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
   app:
     build:
       context: .
@@ -7,34 +39,61 @@ services:
     image: calculadora-emprestimo:latest
     ports:
       - "8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
     restart: unless-stopped
 
-  # Pipeline completo de qualidade; relatórios exportados para a pasta do projeto:
-  #   docker compose --profile ferramentas run --rm --build qualidade
-  # (relatórios copiados para ./relatorios-docker ao final, mesmo se alguma etapa falhar)
+  # ---------- Ferramentas (perfil "ferramentas") ----------
+  # Banco descartável para os testes de integração (dados em memória).
+  db-teste:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: biblioteca_teste
+      POSTGRES_USER: teste
+      POSTGRES_PASSWORD: teste
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U teste -d biblioteca_teste"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    profiles: ["ferramentas"]
+
+  # Pipeline completo; relatórios copiados para ./relatorios-docker ao final (mesmo se algo falhar).
   qualidade:
     build:
       context: .
       target: verificacao
     image: calculadora-emprestimo:verificacao
+    environment:
+      BIBLIOTECA_TEST_DATABASE_URL: postgres://teste:teste@db-teste:5432/biblioteca_teste
     command: >
       sh -c "npm run qualidade; status=$$?;
              cp -r coverage /saida/cobertura 2>/dev/null; cp -r reports/mutation /saida/mutacao 2>/dev/null;
              exit $$status"
     volumes:
       - ./relatorios-docker:/saida
+    depends_on:
+      db-teste:
+        condition: service_healthy
     profiles: ["ferramentas"]
 
-  # Apenas testes + cobertura:  docker compose --profile ferramentas run --rm testes
   testes:
     image: calculadora-emprestimo:verificacao
-    command: sh -c "npm run coverage; status=$$?; cp -r coverage /saida/cobertura 2>/dev/null; exit $$status"
-    volumes:
-      - ./relatorios-docker:/saida
+    environment:
+      BIBLIOTECA_TEST_DATABASE_URL: postgres://teste:teste@db-teste:5432/biblioteca_teste
+    command: sh -c "npm test && npm run test:api"
+    depends_on:
+      db-teste:
+        condition: service_healthy
     profiles: ["ferramentas"]
 
-  # Mutação manual:  docker compose --profile ferramentas run --rm mutacao
   mutacao:
     image: calculadora-emprestimo:verificacao
     command: npm run mutantes
     profiles: ["ferramentas"]
+
+volumes:
+  dados-postgres:

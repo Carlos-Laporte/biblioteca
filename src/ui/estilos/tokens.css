@@ -1,0 +1,129 @@
+/*
+ * Design system — identidade visual UniRV (Manual de Padronização Visual UniRV).
+ * Oficiais: azul #27348B (principal), verde #009640 (secundária),
+ * apoio: azul #0067B1, verde #76B82A, cinza #DADADA. Tipografia: Montserrat.
+ * Tons derivados garantem contraste WCAG AA (validado por `npm run contraste`).
+ */
+:root {
+  /* Cores oficiais */
+  --unirv-azul: #27348b;
+  --unirv-verde: #009640;
+  --unirv-azul-apoio: #0067b1;
+  --unirv-verde-apoio: #76b82a;
+  --unirv-cinza: #dadada;
+
+  /* Superfícies e texto */
+  --fundo: #f4f6fb;
+  --superficie: #ffffff;
+  --superficie-2: #eef1f8;
+  --borda: #dadada;
+  --borda-campo: #7c8399;
+  --texto: #1a1f36;
+  --texto-suave: #4f5670;
+
+  /* Marca */
+  --primaria: #27348b;
+  --primaria-forte: #1d276b;
+  --primaria-suave: #e7eaf6;
+  --primaria-texto: #27348b;
+  --sobre-primaria: #ffffff;
+  --lateral: #27348b;
+  --lateral-suave: #dfe3f5;
+  --lateral-ativo: #1d276b;
+  --foco: #0067b1;
+
+  /* Estados (verde de texto é um tom escuro do verde UniRV: 4,5:1+) */
+  --sucesso: #006b2d;
+  --sucesso-forte: #009640;
+  --sucesso-suave: #e5f4eb;
+  --alerta: #7a4a00;
+  --alerta-forte: #e8a317;
+  --alerta-suave: #fff4db;
+  --erro: #b42318;
+  --erro-forte: #d92d20;
+  --erro-suave: #fdecea;
+  --info: #005696;
+  --info-suave: #e3f0fa;
+
+  /* Gráficos */
+  --grafico-1: #27348b;
+  --grafico-2: #009640;
+  --grafico-3: #76b82a;
+  --grafico-4: #0067b1;
+
+  /* Tipografia */
+  --fonte: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --peso-texto: 500;
+  --peso-destaque: 600;
+  --peso-titulo: 800;
+  --tamanho-xs: 0.75rem;
+  --tamanho-sm: 0.875rem;
+  --tamanho-md: 1rem;
+  --tamanho-lg: 1.25rem;
+  --tamanho-xl: 1.625rem;
+  --tamanho-2xl: 2rem;
+
+  /* Espaçamento, raios, sombras, movimento */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 24px;
+  --esp-6: 32px;
+  --raio-sm: 6px;
+  --raio-md: 10px;
+  --raio-lg: 16px;
+  --sombra-1: 0 1px 2px rgb(26 31 54 / 6%), 0 1px 3px rgb(26 31 54 / 8%);
+  --sombra-2: 0 8px 24px rgb(26 31 54 / 14%);
+  --transicao: 160ms ease;
+
+  color-scheme: light;
+}
+
+:root[data-tema="escuro"] {
+  --fundo: #0e1222;
+  --superficie: #161b30;
+  --superficie-2: #1e2440;
+  --borda: #2e3656;
+  --borda-campo: #6b7494;
+  --texto: #e9ecf7;
+  --texto-suave: #a9b0c9;
+
+  --primaria: #3d4cb8;
+  --primaria-forte: #4f5ed0;
+  --primaria-suave: #232c5c;
+  --primaria-texto: #aab6ff;
+  --sobre-primaria: #ffffff;
+  --lateral: #151c4d;
+  --lateral-suave: #c3cbf2;
+  --lateral-ativo: #27348b;
+  --foco: #6cb8f5;
+
+  --sucesso: #5fd497;
+  --sucesso-forte: #2fb36b;
+  --sucesso-suave: #12301f;
+  --alerta: #f5c766;
+  --alerta-forte: #d99a1e;
+  --alerta-suave: #33270c;
+  --erro: #ff9a8f;
+  --erro-forte: #ef5b4c;
+  --erro-suave: #3a1a17;
+  --info: #8cc8f7;
+  --info-suave: #10283d;
+
+  --grafico-1: #8c9cf5;
+  --grafico-2: #4cc77a;
+  --grafico-3: #a6d65e;
+  --grafico-4: #6cb8f5;
+
+  --sombra-1: 0 1px 2px rgb(0 0 0 / 30%);
+  --sombra-2: 0 12px 32px rgb(0 0 0 / 45%);
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transicao: 0ms;
+  }
+}
