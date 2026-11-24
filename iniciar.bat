@@ -10,8 +10,8 @@ if errorlevel 1 (
   exit /b 1
 )
 
-echo Construindo a imagem (typecheck, lint e testes rodam aqui) e subindo o container...
-docker compose up -d --build app
+echo Construindo as imagens (typecheck, lint e testes rodam aqui) e subindo banco, API e interface...
+docker compose up -d --build
 if errorlevel 1 (
   echo [ERRO] A build falhou. Verifique os testes/lint acima.
   pause
@@ -20,7 +20,7 @@ if errorlevel 1 (
 
 echo Aguardando a aplicacao responder...
 for /l %%i in (1,1,60) do (
-  curl -s -o nul http://localhost:8080/ && goto pronto
+  curl -sf -o nul http://localhost:8080/api/saude && goto pronto
   timeout /t 1 /nobreak >nul
 )
 echo [ERRO] A aplicacao nao respondeu a tempo.

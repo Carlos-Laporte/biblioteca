@@ -49,7 +49,7 @@
 <p><b>Stack:</b> TypeScript 5.9 (modo <code>strict</code>) sobre Node.js 24; <b>Vitest 5</b> (testes unitários) com
 <b>@vitest/coverage-v8</b> (cobertura de linhas e ramos); <b>ESLint 10 + typescript-eslint + eslint-plugin-sonarjs</b>
 (análise estática com as regras do SonarQube); <b>Stryker Mutator</b> (mutação automática, complementar à manual);
-<b>React 19 + Vite 8</b> (interface de demonstração que consome o módulo). O domínio (<code>src/domain</code>) não depende de
+<b>React 19 + Vite 8</b> (interface com a identidade visual da UniRV) e <b>API Fastify + PostgreSQL 17</b>, que usam o mesmo módulo em empréstimos e devoluções reais, com testes de integração em banco real e E2E (Playwright). O domínio (<code>src/domain</code>) não depende de
 UI: <code>CalculadoraEmprestimo.ts</code> (métodos <code>validarEmprestimo</code> e <code>calcularMulta</code>),
 <code>regras.ts</code> (tabela de limites/prazos e constantes financeiras), <code>validacoes.ts</code>, <code>erros.ts</code>
 (<code>ArgumentoInvalidoError</code> ≙ <i>IllegalArgumentException</i>; <code>RegraNegocioError</code> com <code>motivo</code>
@@ -118,12 +118,12 @@ mínimo que o fazia passar. Todo método de teste segue o padrão <b>AAA</b>, co
 
 <h2>5. Execução da suíte e cobertura de código</h2>
 <div class="duas">
-  <figure><img src="img/suite.png"><figcaption>Figura 2 — Suíte final: 53 testes em 5 arquivos, todos passando.</figcaption></figure>
+  <figure><img src="img/suite.png"><figcaption>Figura 2 — Suíte do domínio: 102 testes em 7 arquivos, todos passando (53 do RF01/RF02 + 49 das regras de datas e pendência, CT39–CT54).</figcaption></figure>
   <div>
-    <figure><img src="img/cobertura-texto.png"><figcaption>Figura 3 — Cobertura v8: <b>100% linhas e 100% ramos</b> (16/16).</figcaption></figure>
+    <figure><img src="img/cobertura-texto.png"><figcaption>Figura 3 — Cobertura v8: <b>100% linhas e 100% ramos</b> (27/27, incluindo as regras de datas e pendência).</figcaption></figure>
     <p>A primeira medição (após o ciclo GREEN do teto) já resultou em 100% de linhas (45/45) e de ramos (38/38), pois os
     testes foram derivados da AVL, que exercita os dois lados de cada decisão. Após a refatoração o código passou a ter
-    16 ramos (menos decisões), mantidos em 100%. O limite mínimo de 90% está configurado como
+    16 ramos (menos decisões), mantidos em 100% — e assim seguiram com as regras novas (27/27). O limite mínimo de 90% está configurado como
     <i>threshold</i> em <code>vitest.config.ts</code>: abaixo disso, <code>npm run coverage</code> falha.</p>
   </div>
 </div>
@@ -187,8 +187,8 @@ O código GREEN foi escrito propositalmente “mínimo para passar” (etapa nat
   reutilizadas pelos dois métodos; <code>===</code>, <code>const</code>, <i>shorthand</i>.</td></tr>
 </table>
 </div>
-<figure><img src="img/lint-depois.png" style="width:70%"><figcaption>Figura 7 — Após a refatoração: 0 problemas (inclui UI React e scripts); 53 testes seguem passando.</figcaption></figure>
-<figure><img src="img/ui.png" style="width:62%"><figcaption>Figura 8 — Interface React consumindo o módulo (<code>npm run dev</code>).</figcaption></figure>
+<figure><img src="img/lint-depois.png" style="width:70%"><figcaption>Figura 7 — Após a refatoração: 0 problemas (inclui UI React e scripts); os testes seguem passando.</figcaption></figure>
+<figure><img src="img/ui.png" style="width:72%"><figcaption>Figura 8 — Sistema completo no Docker (<code>npm run docker:subir</code>): painel com indicadores calculados pelo módulo.</figcaption></figure>
 
 <h2>8. Parecer técnico</h2>
 <p>Este trabalho demonstra na prática por que <b>100% de cobertura não garante ausência de defeitos</b>: a suíte já cobria

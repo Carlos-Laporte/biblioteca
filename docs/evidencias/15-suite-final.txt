@@ -1,13 +1,53 @@
 
  RUN  v5.1.1 C:/Users/usuario/OneDrive/Desktop/trabalho vanessa
 
- ✓ tests/elegibilidade.test.ts (9 tests) 8ms
+ ✓ tests/multa-teto.test.ts (5 tests) 8ms
+   ✓ RF02 — Teto máximo da multa (R$ 150,00) (5)
+     ✓ CT26 — teto − 1 dia: 34 dias => R$ 145 4ms
+     ✓ CT27 — ponto exato do teto: 35 dias => R$ 150 0ms
+     ✓ CT28 — teto + 1 dia: 36 dias => R$ 150 0ms
+     ✓ CT29 — valor extremo: 1000 dias => R$ 150 0ms
+     ✓ a multa nunca ultrapassa R$ 150,00 para 0..400 dias 1ms
+ ✓ tests/mensagens-erro.test.ts (10 tests) 11ms
+   ✓ Complementares — robustez e mensagens de erro (10)
+     ✓ CT33 — perfil não-string (array) é rejeitado mesmo se convertido para um perfil válido 4ms
+     ✓ CT33 — perfil não-string (objeto com toString) é rejeitado mesmo se convertido para um perfil válido 1ms
+     ✓ CT33 — perfil não-string (número) é rejeitado mesmo se convertido para um perfil válido 0ms
+     ✓ CT34 — erro de argumento identifica o perfil recebido e o nome da classe 1ms
+     ✓ CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (livros emprestados) 0ms
+     ✓ CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (livros solicitados) 0ms
+     ✓ CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (dias de atraso) 0ms
+     ✓ CT36 — mensagem de pendência inválida identifica o campo 0ms
+     ✓ CT37 — recusa por pendência explica o motivo ao usuário 1ms
+     ✓ CT38 — recusa por limite informa o total e o limite do perfil 1ms
+ ✓ tests/elegibilidade-bloqueios.test.ts (15 tests) 12ms
+   ✓ RF01 — Bloqueios e entradas inválidas (15)
+     ✓ Bloqueio por pendência (4)
+       ✓ CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 5ms
+       ✓ CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 1ms
+       ✓ CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
+       ✓ CT19 — pendência tem prioridade sobre o limite excedido 0ms
+     ✓ Perfil inválido (3)
+       ✓ CT13 — nulo lança ArgumentoInvalidoError 1ms
+       ✓ CT14 — indefinido lança ArgumentoInvalidoError 0ms
+       ✓ CT15 — desconhecido lança ArgumentoInvalidoError 0ms
+     ✓ Quantidade de livros inválida (7)
+       ✓ CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 0ms
+       ✓ CT16 — livros emprestados não inteiro (1.5) lança erro 0ms
+       ✓ CT16 — livros emprestados não inteiro (NaN) lança erro 0ms
+       ✓ CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
+       ✓ CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
+       ✓ CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
+       ✓ CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
+     ✓ Indicador de pendência inválido (1)
+       ✓ CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
+ ✓ tests/elegibilidade.test.ts (9 tests) 10ms
    ✓ RF01 — Elegibilidade e prazo de empréstimo (9)
      ✓ Graduação (limite 3, prazo 15 dias) (5)
-       ✓ CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 3ms
-       ✓ CT02 — aprova 2 + 1 livros (total = limite) 0ms
+       ✓ CT01 — aprova 0 + 3 livros (total = limite) com prazo de 15 dias 4ms
+       ✓ CT02 — aprova 2 + 1 livros (total = limite) 1ms
        ✓ CT03 — recusa 3 + 1 livros (limite + 1) 1ms
-       ✓ CT04 — recusa 0 + 4 livros (limite + 1) 0ms
+       ✓ CT04 — recusa 0 + 4 livros (limite + 1) 1ms
        ✓ CT09 — aprova 0 + 1 livro (mínimo válido) 0ms
      ✓ Pós-Graduação (limite 5, prazo 30 dias) (2)
        ✓ CT05 — aprova 4 + 1 livros (total = limite) com prazo de 30 dias 0ms
@@ -15,38 +55,10 @@
      ✓ Professor (limite 10, prazo 45 dias) (2)
        ✓ CT07 — aprova 9 + 1 livros (total = limite) com prazo de 45 dias 0ms
        ✓ CT08 — recusa 10 + 1 livros (limite + 1) 0ms
- ✓ tests/multa-teto.test.ts (5 tests) 6ms
-   ✓ RF02 — Teto máximo da multa (R$ 150,00) (5)
-     ✓ CT26 — teto − 1 dia: 34 dias => R$ 145 2ms
-     ✓ CT27 — ponto exato do teto: 35 dias => R$ 150 0ms
-     ✓ CT28 — teto + 1 dia: 36 dias => R$ 150 0ms
-     ✓ CT29 — valor extremo: 1000 dias => R$ 150 0ms
-     ✓ a multa nunca ultrapassa R$ 150,00 para 0..400 dias 1ms
- ✓ tests/elegibilidade-bloqueios.test.ts (15 tests) 10ms
-   ✓ RF01 — Bloqueios e entradas inválidas (15)
-     ✓ Bloqueio por pendência (4)
-       ✓ CT12 — recusa GRADUACAO com pendência mesmo dentro do limite 3ms
-       ✓ CT12 — recusa POS_GRADUACAO com pendência mesmo dentro do limite 0ms
-       ✓ CT12 — recusa PROFESSOR com pendência mesmo dentro do limite 0ms
-       ✓ CT19 — pendência tem prioridade sobre o limite excedido 0ms
-     ✓ Perfil inválido (3)
-       ✓ CT13 — nulo lança ArgumentoInvalidoError 0ms
-       ✓ CT14 — indefinido lança ArgumentoInvalidoError 0ms
-       ✓ CT15 — desconhecido lança ArgumentoInvalidoError 0ms
-     ✓ Quantidade de livros inválida (7)
-       ✓ CT10 — livros emprestados = -1 lança ArgumentoInvalidoError 1ms
-       ✓ CT16 — livros emprestados não inteiro (1.5) lança erro 1ms
-       ✓ CT16 — livros emprestados não inteiro (NaN) lança erro 1ms
-       ✓ CT11 — livros solicitados = 0 lança ArgumentoInvalidoError 0ms
-       ✓ CT11 — livros solicitados = -2 lança ArgumentoInvalidoError 0ms
-       ✓ CT17 — livros solicitados não inteiro (2.5) lança erro 0ms
-       ✓ CT17 — livros solicitados não inteiro (Infinity) lança erro 0ms
-     ✓ Indicador de pendência inválido (1)
-       ✓ CT18 — pendência não booleana lança ArgumentoInvalidoError 0ms
- ✓ tests/multa.test.ts (14 tests) 10ms
+ ✓ tests/multa.test.ts (14 tests) 12ms
    ✓ RF02 — Cálculo de multa por atraso (14)
      ✓ Tolerância (0 a 3 dias) (2)
-       ✓ CT21 — 0 dias de atraso: isenção (R$ 0,00) 2ms
+       ✓ CT21 — 0 dias de atraso: isenção (R$ 0,00) 4ms
        ✓ CT22 — 3 dias de atraso: isenção (R$ 0,00) 0ms
      ✓ Primeira faixa (4 a 10 dias: R$ 2,50/dia desde o 1º dia) (3)
        ✓ CT23 — 4 dias de atraso: R$ 10 0ms
@@ -56,28 +68,72 @@
        ✓ CT25 — 11 dias de atraso: R$ 30 0ms
        ✓ CE19 — 20 dias de atraso: R$ 75 0ms
      ✓ Entradas inválidas (6)
-       ✓ CT20 — -1 dia de atraso lança ArgumentoInvalidoError 1ms
+       ✓ CT20 — -1 dia de atraso lança ArgumentoInvalidoError 0ms
        ✓ CT30 — dias não inteiro (4.5) lança ArgumentoInvalidoError 1ms
        ✓ CT30 — dias não inteiro (NaN) lança ArgumentoInvalidoError 0ms
        ✓ CT31 — perfil inválido (null) lança ArgumentoInvalidoError 0ms
        ✓ CT31 — perfil inválido (undefined) lança ArgumentoInvalidoError 0ms
        ✓ CT31 — perfil inválido (VISITANTE) lança ArgumentoInvalidoError 0ms
      ✓ CT32 — a multa independe do perfil do usuário 1ms
- ✓ tests/mensagens-erro.test.ts (10 tests) 8ms
-   ✓ Complementares — robustez e mensagens de erro (10)
-     ✓ CT33 — perfil não-string (array) é rejeitado mesmo se convertido para um perfil válido 4ms
-     ✓ CT33 — perfil não-string (objeto com toString) é rejeitado mesmo se convertido para um perfil válido 0ms
-     ✓ CT33 — perfil não-string (número) é rejeitado mesmo se convertido para um perfil válido 0ms
-     ✓ CT34 — erro de argumento identifica o perfil recebido e o nome da classe 0ms
-     ✓ CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (livros emprestados) 0ms
-     ✓ CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (livros solicitados) 0ms
-     ✓ CT35 — mensagem de quantidade inválida informa campo, valor e mínimo (dias de atraso) 0ms
-     ✓ CT36 — mensagem de pendência inválida identifica o campo 0ms
-     ✓ CT37 — recusa por pendência explica o motivo ao usuário 0ms
-     ✓ CT38 — recusa por limite informa o total e o limite do perfil 0ms
+ ✓ tests/pendencias.test.ts (13 tests) 7ms
+   ✓ Extensão — pendência do usuário (11)
+     ✓ CT50 — sem multas e sem empréstimos ativos não há pendência 2ms
+     ✓ CT51 — uma multa em aberto gera pendência 0ms
+     ✓ CT52 — vence hoje: ainda no prazo 0ms
+     ✓ CT52 — vence amanhã: no prazo 0ms
+     ✓ CT52 — venceu ontem: em atraso 0ms
+     ✓ CT52 — um em dia e outro em atraso 0ms
+     ✓ CT53 — multas negativas lança ArgumentoInvalidoError 0ms
+     ✓ CT53 — multas não inteiras lança ArgumentoInvalidoError 0ms
+     ✓ CT53 — data atual inválida lança ArgumentoInvalidoError 0ms
+     ✓ CT53 — data prevista inválida lança ArgumentoInvalidoError 0ms
+     ✓ CT53 — com multa em aberto, a data atual ainda é validada 0ms
+   ✓ Extensão — livros em uso (2)
+     ✓ CT54 — conta apenas os empréstimos sem data de devolução 0ms
+     ✓ CT54 — lista vazia resulta em zero livros em uso 0ms
+ ✓ tests/datas.test.ts (36 tests) 9ms
+   ✓ Extensão — data prevista de devolução (17)
+     ✓ CT39 — Graduação (+15) 2ms
+     ✓ CT40 — Pós-Graduação (+30), virada de mês 0ms
+     ✓ CT41 — Professor (+45), virada de ano 0ms
+     ✓ CT42 — ano bissexto (29/02 existe) 0ms
+     ✓ CT42 — ano comum (sem 29/02) 0ms
+     ✓ CT43 — data inválida ("2026-02-30") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data inválida ("2026-13-01") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data inválida ("2026-00-10") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data inválida ("10/03/2026") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data inválida ("") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data inválida ("2026-3-10") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data inválida (" 2026-03-10") lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data não-string (null) lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data não-string (undefined) lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — data não-string (20260310) lança ArgumentoInvalidoError 0ms
+     ✓ CT43 — mensagem informa a data recebida 0ms
+     ✓ CT44 — perfil inválido lança ArgumentoInvalidoError 0ms
+   ✓ Extensão — dias de atraso (13)
+     ✓ CT45 — 5 dias antes 0ms
+     ✓ CT45 — no dia previsto 0ms
+     ✓ CT46 — 1 dia depois 0ms
+     ✓ CT46 — 3 dias (fim da tolerância) 0ms
+     ✓ CT46 — 4 dias (início da 1ª faixa) 0ms
+     ✓ CT46 — 10 dias (fim da 1ª faixa) 0ms
+     ✓ CT46 — 11 dias (início da 2ª faixa) 0ms
+     ✓ CT47 — 35 dias de atraso calculados por data geram a multa máxima 0ms
+     ✓ CT48 — fevereiro de ano bissexto 0ms
+     ✓ CT48 — fevereiro de ano comum 0ms
+     ✓ CT48 — virada de ano 0ms
+     ✓ CT43 — data prevista inválida lança erro identificando o campo 0ms
+     ✓ CT43 — data de devolução inválida lança erro identificando o campo 0ms
+   ✓ Extensão — data de hoje no fuso de Brasília (6)
+     ✓ CT49 — 02:59 UTC ainda é o dia anterior em Brasília 0ms
+     ✓ CT49 — 03:00 UTC já é o novo dia em Brasília 0ms
+     ✓ CT49 — virada de ano 0ms
+     ✓ CT49 — sem argumento usa o relógio atual e devolve uma data civil 0ms
+     ✓ CT49 — instante inválido (Invalid Date) lança erro 0ms
+     ✓ CT49 — instante inválido (hoje) lança erro 0ms
 
- Test Files  5 passed (5)
-      Tests  53 passed (53)
-   Start at  08:56:37
-   Duration  304ms (import 52%, tests 18%, transform 15%, worker 15%, environment 1%)
+ Test Files  7 passed (7)
+      Tests  102 passed (102)
+   Start at  16:31:23
+   Duration  447ms (import 57%, transform 21%, tests 11%, worker 11%)
 

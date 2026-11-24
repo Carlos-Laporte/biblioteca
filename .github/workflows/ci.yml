@@ -11,10 +11,22 @@ permissions:
 
 jobs:
   qualidade:
-    name: Testes, cobertura, lint e mutação
+    name: Tipos, lint, contraste, testes, integração e mutação
     runs-on: ubuntu-latest
     env:
       NO_COLOR: '1'
+      BIBLIOTECA_TEST_DATABASE_URL: postgres://teste:teste@localhost:5432/biblioteca_teste
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: biblioteca_teste
+          POSTGRES_USER: teste
+          POSTGRES_PASSWORD: teste
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U teste -d biblioteca_teste"
+          --health-interval 3s --health-timeout 3s --health-retries 20
     steps:
       - uses: actions/checkout@v4
 
@@ -31,8 +43,17 @@ jobs:
       - name: Análise estática (ESLint + SonarJS)
         run: npm run lint -- --max-warnings=0
 
-      - name: Testes + cobertura (mínimo 90%)
+      - name: Contraste WCAG das cores do design system
+        run: npm run contraste
+
+      - name: Domínio — testes + cobertura (mínimo 90%)
         run: npm run coverage
+
+      - name: Interface — testes de componentes
+        run: npm run test:ui
+
+      - name: API — testes de integração com PostgreSQL real (mínimo 80%)
+        run: npm run coverage:api
 
       - name: Mutantes manuais
         run: npm run mutantes
@@ -44,11 +65,11 @@ jobs:
         if: always()
         run: |
           node -e "
-            const s = require('./coverage/coverage-summary.json').total;
-            const linha = (n, m) => '| ' + n + ' | ' + m.pct + '% | ' + m.covered + '/' + m.total + ' |';
-            console.log(['## Cobertura', '| Métrica | % | Cobertos |', '|---|---|---|',
-              linha('Linhas', s.lines), linha('Ramos', s.branches),
-              linha('Funções', s.functions), linha('Instruções', s.statements)].join('\n'));
+            const linha = (n, m) => '| ' + n + ' | ' + m.lines.pct + '% | ' + m.branches.pct + '% |';
+            const ler = (f) => require(f).total;
+            console.log(['## Cobertura', '| Camada | Linhas | Ramos |', '|---|---|---|',
+              linha('Domínio', ler('./coverage/coverage-summary.json')),
+              linha('API', ler('./coverage/api/coverage-summary.json'))].join('\n'));
           " >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publicar relatórios
@@ -60,19 +81,36 @@ jobs:
             coverage/
             reports/mutation/
 
-  docker:
-    name: Build da imagem Docker
+  e2e:
+    name: Docker + E2E (Playwright)
     needs: qualidade
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build (portão de qualidade + Nginx)
-        run: docker build --target app -t calculadora-emprestimo:ci .
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
 
-      - name: Smoke test do container
-        run: |
-          docker run -d --name app -p 8080:80 calculadora-emprestimo:ci
-          for i in $(seq 1 30); do curl -sf http://localhost:8080/ >/dev/null && break; sleep 1; done
-          curl -sf http://localhost:8080/ | grep -q '<div id="root">'
-          echo "Container respondeu corretamente."
+      - run: npm ci
+
+      - name: Sobe o sistema completo (db + api + app)
+        run: docker compose up -d --build --wait
+
+      - name: Instala o Chromium do Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Testes ponta a ponta
+        run: npm run test:e2e
+
+      - name: Logs dos containers
+        if: failure()
+        run: docker compose logs
+
+      - name: Publicar relatório do Playwright
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/

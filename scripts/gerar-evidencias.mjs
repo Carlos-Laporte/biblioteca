@@ -1,7 +1,7 @@
 // Gera as evidências (prints) do relatório a partir das saídas REAIS das ferramentas
 // e imprime o relatório em PDF. Requer Google Chrome ou Microsoft Edge instalado.
 //   npm run evidencias
-import { execSync, spawn } from 'node:child_process';
+import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -119,13 +119,14 @@ printTerminal(
   900,
 );
 
-// 7) Interface React (servidor de preview do Vite)
-rodar('npx vite build');
-const servidor = spawn('npx', ['vite', 'preview', '--port', '4799', '--strictPort'], { shell: true, env });
-await new Promise((ok) => setTimeout(ok, 4000));
-screenshot('http://localhost:4799/', resolve(IMG, 'ui.png'), 1000, 560);
-if (process.platform === 'win32') execSync(`taskkill /pid ${servidor.pid} /T /F`, { stdio: 'ignore' });
-else servidor.kill();
+// 7) Interface React — do sistema completo no Docker (front + API + PostgreSQL)
+const URL_SISTEMA = 'http://localhost:8080';
+const noAr = await fetch(`${URL_SISTEMA}/api/saude`).then((resposta) => resposta.ok).catch(() => false);
+if (noAr) {
+  screenshot(`${URL_SISTEMA}/`, resolve(IMG, 'ui.png'), 1440, 900);
+} else {
+  console.warn('⚠ Sistema fora do ar: rode `npm run docker:subir` para atualizar o print da interface (ui.png mantido).');
+}
 
 // 8) Relatório em PDF
 const relatorio = resolve('docs/relatorio/relatorio.html');

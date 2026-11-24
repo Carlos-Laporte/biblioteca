@@ -28,7 +28,9 @@
     "db:gerar": "drizzle-kit generate",
     "test:ui": "vitest run -c vitest.ui.config.ts",
     "contraste": "node scripts/contraste.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "docker:e2e": "node scripts/docker.mjs e2e",
+    "docker:resetar": "node scripts/docker.mjs resetar"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.1",

@@ -32,7 +32,7 @@ async function aguardarAplicacao() {
   const inicio = Date.now();
   while (Date.now() - inicio < TEMPO_MAXIMO_MS) {
     try {
-      const resposta = await fetch(URL_APP);
+      const resposta = await fetch(`${URL_APP}/api/saude`); // atravessa Nginx → API → banco
       if (resposta.ok) return true;
     } catch {
       // container ainda iniciando
@@ -53,15 +53,23 @@ function abrirNavegador(url) {
 
 const acoes = {
   async subir() {
-    garantirDocker();
-    executar('docker compose up -d --build app');
-    process.stdout.write('\n⏳ Aguardando a aplicação responder');
-    if (!(await aguardarAplicacao())) {
-      console.error('\n✖ A aplicação não respondeu a tempo. Veja: npm run docker:logs');
+    await subirSistema();
+    abrirNavegador(URL_APP);
+  },
+  async e2e() {
+    await subirSistema();
+    executar('npx playwright test');
+    console.log('\n✓ E2E concluído. Relatório: npx playwright show-report');
+  },
+  resetar() {
+    if (!process.argv.includes('--sim')) {
+      console.error('⚠ Isto APAGA todos os dados do banco local (volume dados-postgres) e recria os dados de exemplo.');
+      console.error('  Para confirmar:  npm run docker:resetar -- --sim');
       process.exit(1);
     }
-    console.log(`\n✓ Aplicação no ar em ${URL_APP}`);
-    abrirNavegador(URL_APP);
+    executar('docker compose --profile ferramentas down -v --remove-orphans');
+    executar('docker compose up -d --build --wait');
+    console.log('\n✓ Banco recriado com os dados de exemplo.');
   },
   qualidade() {
     garantirDocker();
@@ -75,9 +83,20 @@ const acoes = {
     executar('docker compose --profile ferramentas down --remove-orphans');
   },
   logs() {
-    executar('docker compose logs -f app');
+    executar('docker compose logs -f db api app');
   },
 };
+
+async function subirSistema() {
+  garantirDocker();
+  executar('docker compose up -d --build');
+  process.stdout.write('\n⏳ Aguardando banco, API e interface');
+  if (!(await aguardarAplicacao())) {
+    console.error('\n✖ O sistema não respondeu a tempo. Veja: npm run docker:logs');
+    process.exit(1);
+  }
+  console.log(`\n✓ Sistema no ar em ${URL_APP}`);
+}
 
 const acao = acoes[process.argv[2]];
 if (!acao) {

@@ -29,7 +29,7 @@ const COLUNAS_ATRASO: ReadonlyArray<Coluna<Emprestimo>> = [
   colunaLivro,
   { titulo: 'Situação', celula: (item) => <BadgeAtraso dias={item.diasAtraso} /> },
   {
-    titulo: 'Multa se devolver hoje',
+    titulo: 'Multa hoje',
     numerica: true,
     celula: (item) => formatarReais(calculadora.calcularMulta(item.diasAtraso, item.usuario.perfil)),
   },
