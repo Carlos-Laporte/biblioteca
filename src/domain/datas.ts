@@ -15,7 +15,8 @@ const formatadorDataCivil = new Intl.DateTimeFormat('en-CA', {
   day: '2-digit',
 });
 
-function paraTexto(diaAbsoluto: number): string {
+/** Converte o número de dias desde 1970-01-01 (UTC) de volta para `AAAA-MM-DD`. */
+export function paraTexto(diaAbsoluto: number): string {
   return new Date(diaAbsoluto * MS_POR_DIA).toISOString().slice(0, TAMANHO_DATA_ISO);
 }
 

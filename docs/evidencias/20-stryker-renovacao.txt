@@ -1,0 +1,10 @@
+              | % Mutation score |          |           |            |          |          |
+File          |  total | covered | # killed | # timeout | # survived | # no cov | # errors |
+--------------|--------|---------|----------|-----------|------------|----------|----------|
+All files     | 100.00 |  100.00 |       50 |         0 |          0 |        0 |        0 |
+ renovacao.ts | 100.00 |  100.00 |       50 |         0 |          0 |        0 |        0 |
+--------------|--------|---------|----------|-----------|------------|----------|----------|
+15:16:13 (1390) INFO MutationTestReportHelper Final mutation score of 100.00 is greater than or equal to break threshold 70
+15:16:13 (1390) INFO JsonReporter Your report can be found at: file://biblioteca/reports/mutation/mutation.json
+15:16:13 (1390) INFO HtmlReporter Your report can be found at: file://biblioteca/reports/mutation/index.html
+15:16:13 (1390) INFO MutationTestExecutor Done in 5 seconds.
