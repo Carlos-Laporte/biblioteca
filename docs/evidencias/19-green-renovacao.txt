@@ -1,0 +1,33 @@
+
+ RUN  v5.1.1 biblioteca
+
+ ✓ tests/renovacao.test.ts > RF03 — renovação: janela de datas > CT55 — 4 dias antes da data prevista ainda está fora do período 2ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: janela de datas > CT56 — 3 dias antes (início da janela) é aprovada com prazo contado a partir de hoje 1ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: janela de datas > CT57 — no dia previsto (fim da janela) é aprovada com prazo contado a partir de hoje 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: janela de datas > CT58 — 1 dia depois da data prevista o empréstimo está em atraso 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: limite e prazo por perfil > CT59 — nenhuma renovação feita: aprovada com 0 → 1 restantes 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: limite e prazo por perfil > CT59 — uma renovação feita: aprovada com 1 → 0 restantes 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: limite e prazo por perfil > CT59 — com 2 renovações feitas o limite foi atingido 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: limite e prazo por perfil > CT60 — Graduação (+15) 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: limite e prazo por perfil > CT60 — Pós-Graduação (+30) 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: limite e prazo por perfil > CT60 — Professor (+45) 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: bloqueios > CT61 — livro reservado por outro usuário não pode ser renovado 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: bloqueios > CT62 — usuário com pendência não pode renovar 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: bloqueios > CT63 — atraso vem antes de tudo 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: bloqueios > CT63 — pendência vem antes de reserva 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: bloqueios > CT63 — reserva vem antes do limite 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: bloqueios > CT63 — limite vem antes do período 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — perfil desconhecido lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — perfil nulo lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — data prevista inexistente lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — data atual em outro formato lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — renovações negativas lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — renovações não inteiras lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — reserva não booleana lança ArgumentoInvalidoError 0ms
+ ✓ tests/renovacao.test.ts > RF03 — renovação: entradas inválidas > CT64 — pendência não booleana lança ArgumentoInvalidoError 0ms
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  18:16:06
+   Duration  138ms (import 58%, transform 20%, tests 15%, worker 6%)
+

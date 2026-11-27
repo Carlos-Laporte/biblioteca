@@ -167,3 +167,61 @@ contarLivrosEmUso(emprestimos)                      // => empréstimos sem data 
 | CT52 | prevista = hoje / amanhã / ontem | — | não / não / **sim** |
 | CT53 | entradas inválidas na pendência | multas -1, data inválida | `ArgumentoInvalidoError` |
 | CT54 | livros em uso | [ativo, devolvido, ativo] | 2 |
+
+## 4. Extensão — renovação de empréstimo (RF03)
+
+Regra nova, implementada com TDD (`tests/renovacao.test.ts`): o usuário pode prolongar um
+empréstimo ativo sem devolver o livro, desde que esteja em dia, sem pendências e sem reserva
+de outro usuário para o mesmo livro.
+
+### Suposições registradas
+
+| # | Suposição | Justificativa |
+|---|---|---|
+| S7 | Máximo de **2 renovações** por empréstimo, para todos os perfis | evita que um livro fique preso com o mesmo usuário indefinidamente |
+| S8 | A renovação só é aceita a partir de **3 dias antes** da data prevista | impede renovar logo após o empréstimo e "gastar" uma renovação sem ganho de prazo |
+| S9 | A nova data prevista é **hoje + prazo do perfil** (dias corridos) | o novo prazo conta a partir do dia da renovação, como no empréstimo |
+| S10 | Empréstimo **vencido** (prevista anterior a hoje) não pode ser renovado | consistente com S5: o livro já está em atraso e gera multa na devolução |
+| S11 | Livro **reservado** por outro usuário não pode ser renovado | o próximo da fila tem prioridade |
+| S12 | Ordem das recusas: atraso → pendência → reserva → limite de renovações → fora do período | a recusa informa o motivo mais grave primeiro |
+
+### Função
+
+```ts
+validarRenovacao({ perfil, dataPrevista, hoje, renovacoesRealizadas, possuiReserva, possuiPendencia })
+  // => { aprovada: true, novaDataDevolucao, renovacoesRestantes }
+  // lança RegraNegocioError (ATRASO | PENDENCIA | RESERVA | LIMITE_RENOVACOES | FORA_DO_PERIODO)
+  //     | ArgumentoInvalidoError (entrada inválida)
+```
+
+### Partição de Equivalência
+
+| Entrada | Classe | Tipo | Representante | Esperado |
+|---|---|---|---|---|
+| hoje vs. prevista | CE34 dentro da janela (prevista − 3 até prevista) | Válida | prevista − 1 | aprovada |
+| hoje vs. prevista | CE35 antes da janela (< prevista − 3) | Válida (recusa) | prevista − 10 | `RegraNegocioError` (FORA_DO_PERIODO) |
+| hoje vs. prevista | CE36 depois da prevista | Válida (recusa) | prevista + 1 | `RegraNegocioError` (ATRASO) |
+| renovacoesRealizadas | CE37 0 ou 1 | Válida | 0, 1 | aprovada |
+| renovacoesRealizadas | CE38 ≥ 2 | Válida (recusa) | 2 | `RegraNegocioError` (LIMITE_RENOVACOES) |
+| renovacoesRealizadas | CE39 negativo / não inteiro | Inválida | -1, 1.5 | `ArgumentoInvalidoError` |
+| possuiReserva | CE40 `false` / `true` | Válida | true | `RegraNegocioError` (RESERVA) |
+| possuiPendencia | CE41 `false` / `true` | Válida | true | `RegraNegocioError` (PENDENCIA) |
+| booleanos | CE42 não booleano | Inválida | `undefined`, `'sim'` | `ArgumentoInvalidoError` |
+| perfil / datas | CE04–CE05, CE24–CE26 | Inválida | `'VISITANTE'`, `2026-02-30` | `ArgumentoInvalidoError` |
+
+### Análise do Valor Limite
+
+Data prevista de referência: **2026-03-25** (Graduação, prazo de 15 dias).
+
+| ID | Caso | Entrada | Esperado |
+|---|---|---|---|
+| CT55 | 4 dias antes (fora da janela) | hoje 2026-03-21 | recusa (FORA_DO_PERIODO) |
+| CT56 | 3 dias antes (início da janela) | hoje 2026-03-22 | aprovada, nova data 2026-04-06 |
+| CT57 | no dia previsto (fim da janela) | hoje 2026-03-25 | aprovada, nova data 2026-04-09 |
+| CT58 | 1 dia depois da prevista | hoje 2026-03-26 | recusa (ATRASO) |
+| CT59 | renovações 0 / 1 / 2 | 0, 1, 2 | restantes 1 / 0 / recusa (LIMITE_RENOVACOES) |
+| CT60 | prazo por perfil | Pós e Professor, hoje 2026-03-24 | 2026-04-23 / 2026-05-08 |
+| CT61 | livro reservado | possuiReserva true | recusa (RESERVA) |
+| CT62 | usuário com pendência | possuiPendencia true | recusa (PENDENCIA) |
+| CT63 | prioridade das recusas | atrasado + pendência + reserva + limite | recusa (ATRASO); sem atraso → PENDENCIA; ... |
+| CT64 | entradas inválidas | perfil, datas, renovações e booleanos fora do domínio | `ArgumentoInvalidoError` |

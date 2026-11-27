@@ -1,7 +1,7 @@
 # Biblioteca UniRV — Empréstimos e Multas
 
 Sistema de biblioteca universitária construído em torno do módulo de regras de negócio
-**`CalculadoraEmprestimo`** (elegibilidade de empréstimos — RF01 — e multas por atraso — RF02),
+**`CalculadoraEmprestimo`** (elegibilidade de empréstimos — RF01 —, multas por atraso — RF02 — e renovação — RF03),
 desenvolvido com **TDD** e validado por cobertura, análise de mutantes, análise estática,
 testes de integração com banco real e testes ponta a ponta.
 
@@ -9,7 +9,7 @@ testes de integração com banco real e testes ponta a ponta.
 
 | | |
 |---|---|
-| Domínio | TypeScript 5.9 (`strict`) — **102 testes, 100% de linhas e ramos, Stryker 100%** |
+| Domínio | TypeScript 5.9 (`strict`) — **126 testes, 100% de linhas e ramos, Stryker 100%** |
 | API | Node.js 24 + Fastify 5 + PostgreSQL 17 (Drizzle ORM) — **56 testes de integração em banco real, 97,7% de linhas** |
 | Interface | React 19 + Vite 8, identidade visual UniRV — **23 testes de componentes** |
 | Ponta a ponta | Playwright (desktop + celular) — **37 testes**: fluxos, acessibilidade (axe, WCAG 2.1 AA) e responsividade |
@@ -136,7 +136,7 @@ confirma ao salvar.
 
 Painel · Novo empréstimo · Devolução · Usuários (lista e detalhe) · Acervo · Multas · Simulador.
 
-### Regras (RF01/RF02)
+### Regras (RF01/RF02/RF03)
 
 | Perfil | Limite simultâneo | Prazo |
 |---|---|---|
@@ -149,6 +149,10 @@ Painel · Novo empréstimo · Devolução · Usuários (lista e detalhe) · Acer
   R$ 5,00 por dia excedente · teto de R$ 150,00 (atingido com 35 dias).
 - Suposições das regras de data (dias corridos, fuso de Brasília, devolução no dia previsto sem atraso):
   [docs/casos-de-teste.md](docs/casos-de-teste.md#3-extensão--regras-de-datas-e-pendência-sistema-completo).
+- Renovação (RF03, no domínio: `validarRenovacao`): até 2 renovações por empréstimo, a partir de 3 dias
+  antes da data prevista; o novo prazo conta a partir do dia da renovação. É recusada se o empréstimo
+  estiver vencido, se o usuário tiver pendência ou se outro usuário tiver reservado o livro
+  ([casos de teste](docs/casos-de-teste.md#4-extensão--renovação-de-empréstimo-rf03)).
 
 ## Identidade visual e acessibilidade
 

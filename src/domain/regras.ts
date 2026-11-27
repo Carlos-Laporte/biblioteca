@@ -20,3 +20,9 @@ export const REGRAS_MULTA = {
   VALOR_DIA_EXCEDENTE: 5,
   TETO: 150,
 } as const;
+
+/** RF03 — renovação de empréstimo. */
+export const REGRAS_RENOVACAO = {
+  MAXIMO_RENOVACOES: 2,
+  DIAS_ANTECEDENCIA: 3,
+} as const;
